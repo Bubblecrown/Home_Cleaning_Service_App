@@ -22,7 +22,15 @@ class LoginPage extends StatelessWidget {
                 child: Form(
                     child: SingleChildScrollView(
                   child: Column(
-                    children: [TextFormField(), TextFormField()],
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Enter your username',
+                        ),
+                      ),
+                      TextFormField()
+                    ],
                   ),
                 )),
               ),
