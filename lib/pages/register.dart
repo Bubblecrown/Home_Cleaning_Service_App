@@ -1,10 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:home_cleaning_service_app/model/Users.dart';
+import 'package:home_cleaning_service_app/pages/welcome.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final formKey = GlobalKey<FormState>();
+  Users users = Users(
+    username: ' ',
+    email: ' ',
+    password: ' ',
+  );
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    String title = capitalize("home hub");
+    String description = capitalize("Let's make awesome changes to your home.");
+    String btnLogin = capitalize("login");
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title),
+              Text(description),
+              SizedBox(
+                child: Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            onSaved: (String? username) {
+                              users.username = username!;
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter your username',
+                            ),
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            onSaved: (String? email) {
+                              users.email = email!;
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter your email',
+                            ),
+                          ),
+                          TextFormField(
+                            obscureText: true,
+                            onSaved: (String? password) {
+                              users.password = password!;
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter your password',
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
+              SizedBox(
+                  width: double.infinity,
+                  child:
+                      ElevatedButton(onPressed: () {
+                        formKey.currentState?.save();
+                      }, child: Text(btnLogin))),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
