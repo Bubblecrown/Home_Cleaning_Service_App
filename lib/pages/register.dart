@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 
@@ -38,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
+                            validator: RequiredValidator(errorText: "You must enter your name"),
                             onSaved: (String? username) {
                               users.username = username!;
                             },
