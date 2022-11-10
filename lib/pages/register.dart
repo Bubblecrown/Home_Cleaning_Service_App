@@ -75,6 +75,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   child:
                       ElevatedButton(onPressed: () {
                         formKey.currentState?.save();
+                        print("username = ${users.username} email = ${users.email} password = ${users.password}");
+                        formKey.currentState?.reset();
                       }, child: Text(btnLogin))),
             ],
           ),
