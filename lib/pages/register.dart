@@ -51,8 +51,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            validator: RequiredValidator(
-                                errorText: "You must enter your email"),
+                            validator: MultiValidator([
+                              EmailValidator(errorText: "Invalid Email Format"),
+                              RequiredValidator(
+                                  errorText: "You must enter your email")
+                            ]),
                             onSaved: (String? email) {
                               users.email = email!;
                             },
