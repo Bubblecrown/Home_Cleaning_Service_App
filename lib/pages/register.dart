@@ -39,7 +39,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            validator: RequiredValidator(errorText: "You must enter your name"),
+                            validator: RequiredValidator(
+                                errorText: "You must enter your name"),
                             onSaved: (String? username) {
                               users.username = username!;
                             },
@@ -50,6 +51,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
+                            validator: RequiredValidator(
+                                errorText: "You must enter your email"),
                             onSaved: (String? email) {
                               users.email = email!;
                             },
@@ -60,6 +63,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           TextFormField(
                             obscureText: true,
+                            validator: RequiredValidator(
+                                errorText: "You must enter your password"),
                             onSaved: (String? password) {
                               users.password = password!;
                             },
@@ -74,12 +79,16 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(
                   width: double.infinity,
-                  child:
-                      ElevatedButton(onPressed: () {
-                        formKey.currentState?.save();
-                        print("username = ${users.username} email = ${users.email} password = ${users.password}");
-                        formKey.currentState?.reset();
-                      }, child: Text(btnLogin))),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState?.save();
+                          print(
+                              "username = ${users.username} email = ${users.email} password = ${users.password}");
+                          formKey.currentState?.reset();
+                        }
+                      },
+                      child: Text(btnLogin))),
             ],
           ),
         ),
