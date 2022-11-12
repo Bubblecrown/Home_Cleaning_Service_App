@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "624874850344",
+    "project_id": "home-cleaning-service-app",
+    "storage_bucket": "home-cleaning-service-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624874850344:android:a022e04c69301aa3cecd1d",
+        "android_client_info": {
+          "package_name": "com.example.home_cleaning_service_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624874850344-q77alsrjsbf3db0ebdl68tefg9cv0g7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNMb9n05i1yVxuoRbrr9GW-apuFQ7weOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624874850344-q77alsrjsbf3db0ebdl68tefg9cv0g7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
