@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
@@ -28,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String title = capitalize("home hub");
     String description = capitalize("Let's make awesome changes to your home.");
     String btnLogin = capitalize("login");
+    String success = capitalize("your account has been successfully created ");
     return FutureBuilder(
       future: firebase,
       builder: (context, snapshot) {
@@ -101,8 +103,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                           email: users.email,
                                           password: users.password);
                                   formKey.currentState?.reset();
+                                  Fluttertoast.showToast(
+                                    msg: success,
+                                    gravity: ToastGravity.TOP
+                                    );
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                      return WelcomePage();
+                                    }));
                                 } on FirebaseAuthException catch (e) {
                                   print(e.message);
+                                  Fluttertoast.showToast(
+                                    msg: e.message!,
+                                    gravity: ToastGravity.TOP
+                                    );
                                 }
                               }
                             },
