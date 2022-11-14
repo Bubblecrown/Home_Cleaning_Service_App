@@ -18,20 +18,21 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
   Users users = Users(
-    email: ' ',
-    password: ' ',
+    email: '',
+    password: '',
   );
 
-  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
+final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     String title = capitalize("home hub");
     String description = capitalize("Let's make awesome changes to your home.");
     String btnLogin = capitalize("login");
-    String success = capitalize("your account has been successfully created ");
+    String success = capitalize("your account has been successfully created");
+    
     return FutureBuilder(
-      future: firebase,
+      future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Scaffold(
@@ -111,9 +112,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                       return WelcomePage();
                                     }));
                                 } on FirebaseAuthException catch (e) {
-                                  print(e.message);
+                                  print(e.code);
+                                  String? message;
+                                  if(e.code == 'email-already-in-use'){
+                                    message = 'This email is already in use, please enter again';
+                                  }else if(e.code == 'weak-password'){
+                                    message = 'Password should more than 6 characters';
+                                  }else{
+                                    message = e.message;
+                                  }
                                   Fluttertoast.showToast(
-                                    msg: e.message!,
+                                    msg: '$message',
                                     gravity: ToastGravity.TOP
                                     );
                                 }
