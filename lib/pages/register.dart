@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:home_cleaning_service_app/model/Users.dart';
+import 'package:home_cleaning_service_app/data/Users.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,15 +22,14 @@ class _RegisterPageState extends State<RegisterPage> {
     password: '',
   );
 
-
-final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     String title = capitalize("home hub");
     String description = capitalize("Let's make awesome changes to your home.");
     String btnLogin = capitalize("login");
     String success = capitalize("your account has been successfully created");
-    
+
     return FutureBuilder(
       future: _initialization,
       builder: (context, snapshot) {
@@ -44,7 +43,21 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            body: Center(
+            extendBodyBehindAppBar: true,
+            backgroundColor: Colors.pink,
+            appBar: AppBar(
+              title: Text('Register'),
+              leading: BackButton(onPressed: (() {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return WelcomePage();
+                }));
+              })),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            body: 
+            Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
@@ -58,7 +71,6 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                
                                 TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   validator: MultiValidator([
@@ -71,9 +83,9 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
                                     users.email = email!;
                                   },
                                   decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Enter your email',
-                                  ),
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Email',
+                                      hintText: 'Enter your email'),
                                 ),
                                 TextFormField(
                                   obscureText: true,
@@ -84,9 +96,9 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
                                     users.password = password!;
                                   },
                                   decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Enter your password',
-                                  ),
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Password',
+                                      hintText: 'Enter your Password'),
                                 )
                               ],
                             ),
@@ -102,29 +114,33 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
                                   await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                           email: users.email,
-                                          password: users.password);
-                                  formKey.currentState?.reset();
-                                  Fluttertoast.showToast(
-                                    msg: success,
-                                    gravity: ToastGravity.TOP
-                                    );
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                                      return WelcomePage();
-                                    }));
+                                          password: users.password)
+                                      .then((value) => {
+                                            formKey.currentState?.reset(),
+                                            Fluttertoast.showToast(
+                                                msg: success,
+                                                gravity: ToastGravity.TOP),
+                                            Navigator.pushReplacement(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return WelcomePage();
+                                            }))
+                                          });
                                 } on FirebaseAuthException catch (e) {
                                   print(e.code);
                                   String? message;
-                                  if(e.code == 'email-already-in-use'){
-                                    message = 'This email is already in use, please enter again';
-                                  }else if(e.code == 'weak-password'){
-                                    message = 'Password should more than 6 characters';
-                                  }else{
+                                  if (e.code == 'email-already-in-use') {
+                                    message =
+                                        'This email is already in use, please enter again';
+                                  } else if (e.code == 'weak-password') {
+                                    message =
+                                        'Password should more than 6 characters';
+                                  } else {
                                     message = e.message;
                                   }
                                   Fluttertoast.showToast(
-                                    msg: '$message',
-                                    gravity: ToastGravity.TOP
-                                    );
+                                      msg: '$message',
+                                      gravity: ToastGravity.TOP);
                                 }
                               }
                             },

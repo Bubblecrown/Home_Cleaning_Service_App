@@ -16,15 +16,14 @@ class WelcomePage extends StatelessWidget {
     String description =
         "Keep your home clean and pristine by enlisting the help of a professional cleaner as often as you need.";
     return Scaffold(
-      body: 
-        Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: CustomScrollView(
-            scrollDirection: Axis.vertical,
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: CustomScrollView(
+          scrollDirection: Axis.vertical,
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset("assets/welcome/banner.png"),
@@ -57,10 +56,9 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: pink),
+                            style: ElevatedButton.styleFrom(primary: pink),
                             onPressed: () {
-                              Navigator.push(context,
+                              Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
                                 return LoginPage();
                               }));
@@ -70,10 +68,9 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                                primary: pink),
+                            style: OutlinedButton.styleFrom(primary: pink),
                             onPressed: () {
-                              Navigator.push(context,
+                              Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
                                 return RegisterPage();
                               }));
@@ -85,10 +82,9 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
             ),
-            
-            ],),
-          ),
-
+          ],
+        ),
+      ),
     );
   }
 }
@@ -99,5 +95,3 @@ String capitalize(String str) {
     return word[0].toUpperCase() + leftText;
   }).join(' ');
 }
-
-
