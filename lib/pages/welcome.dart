@@ -80,6 +80,7 @@ class WelcomePage extends StatelessWidget {
                     width: 50.w,
                     height: 7.h,
                     child: ElevatedButton(
+                      
                         style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
@@ -88,6 +89,7 @@ class WelcomePage extends StatelessWidget {
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(primary)),
                         onPressed: () {
+                          
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
                             return LoginPage();

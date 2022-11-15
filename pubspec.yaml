@@ -39,6 +39,7 @@ dependencies:
   fluttertoast: ^8.1.1
   flutter_spinkit: ^5.1.0
   sizer: ^2.0.15
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/image/banner.png
+    - assets/image/bannerLogin.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

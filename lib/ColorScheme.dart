@@ -1,4 +1,4 @@
-
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 
@@ -6,8 +6,9 @@ Color primary = Color(hexColor('#749BFA'));
 Color Secondary =  Color(hexColor('#ACC4FF'));
 Color white =  Color(hexColor('##FFFFFF'));
 Color black =  Color(hexColor('#4F4F4F'));
+Color greyPrimary =  Color(hexColor('#7B7B7B'));
+Color grey =  Color(hexColor('#C0C0C0'));
 
-Color blue =  Color(hexColor('#3b7fcf'));
 Color yellow =  Color(hexColor('#eec045'));
 Color green =  Color(hexColor('#4e9f7f'));
 Color pinkSecondary =  Color(hexColor('#f4afc2'));
