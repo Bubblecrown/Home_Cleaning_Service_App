@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:home_cleaning_service_app/pages/welcome.dart';
 
 import '../data/Users.dart';
 
@@ -16,13 +17,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  final usersData = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Welcome ${usersData.currentUser?.email}' ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Welcome ${auth.currentUser?.email}"),
+            ElevatedButton(
+                onPressed: () {
+                  auth.signOut().then((value) => {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return WelcomePage();
+                        }))
+                      });
+                },
+                child: Text('Log out'))
+          ],
+        ),
       ),
     );
   }

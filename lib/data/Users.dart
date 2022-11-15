@@ -3,5 +3,6 @@
 class Users{
   String email;
   String password;
-  Users({required this.email, required this.password});
+  String confirmPassword;
+  Users({required this.email, required this.password, required this.confirmPassword});
 }

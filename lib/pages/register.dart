@@ -17,10 +17,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(
-    email: '',
-    password: '',
-  );
+  Users users = Users(email: '', password: '', confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
@@ -56,8 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
-            body: 
-            Center(
+            body: Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
@@ -99,6 +95,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                       border: OutlineInputBorder(),
                                       labelText: 'Password',
                                       hintText: 'Enter your Password'),
+                                ),
+                                TextFormField(
+                                  obscureText: true,
+                                  validator: RequiredValidator(
+                                      errorText:
+                                          "You must enter your password"),
+                                  onSaved: (String? confirmPassword) {
+                                    users.confirmPassword = confirmPassword!;
+                                  },
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Confirm Password',
+                                      hintText: 'Enter your Password'),
                                 )
                               ],
                             ),
@@ -108,24 +117,32 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: () async {
+                              
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState?.save();
                                 try {
-                                  await FirebaseAuth.instance
-                                      .createUserWithEmailAndPassword(
-                                          email: users.email,
-                                          password: users.password)
-                                      .then((value) => {
-                                            formKey.currentState?.reset(),
-                                            Fluttertoast.showToast(
-                                                msg: success,
-                                                gravity: ToastGravity.TOP),
-                                            Navigator.pushReplacement(context,
-                                                MaterialPageRoute(
-                                                    builder: (context) {
-                                              return WelcomePage();
-                                            }))
-                                          });
+                                  if (users.password == users.confirmPassword) {
+                                    await FirebaseAuth.instance
+                                        .createUserWithEmailAndPassword(
+                                            email: users.email,
+                                            password: users.password)
+                                        .then((value) => {
+                                              formKey.currentState?.reset(),
+                                              Fluttertoast.showToast(
+                                                  msg: success,
+                                                  gravity: ToastGravity.TOP),
+                                              Navigator.pushReplacement(context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                                return WelcomePage();
+                                              }))
+                                            });
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "Password and Confirm-password is not match.",
+                                        gravity: ToastGravity.TOP);
+                                  }
                                 } on FirebaseAuthException catch (e) {
                                   print(e.code);
                                   String? message;

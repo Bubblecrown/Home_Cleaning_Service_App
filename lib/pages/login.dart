@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Users users = Users(
     email: '',
     password: '',
+    confirmPassword: ''
   );
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -30,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
     String title = capitalize("home hub");
     String description = capitalize("Let's make awesome changes to your home.");
     String btnLogin = capitalize("login");
-    String success = capitalize("your account has been successfully created");
 
     return FutureBuilder(
       future: _initialization,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_cleaning_service_app/pages/SplashScreen.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 
 void main() {
@@ -16,6 +17,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const WelcomePage());
+        home: const SplashScreen());
   }
 }

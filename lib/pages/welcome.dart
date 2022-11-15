@@ -33,9 +33,10 @@ class WelcomePage extends StatelessWidget {
                       title,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: pink,
+                        color: primary,
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
+                        fontFamily: "Bold"
                       ),
                     ),
                   ),
@@ -56,7 +57,7 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary: pink),
+                            style: ElevatedButton.styleFrom(primary: primary),
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
@@ -68,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(primary: pink),
+                            style: OutlinedButton.styleFrom(primary: primary),
                             onPressed: () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
