@@ -43,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
           return Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor: primary,
-            resizeToAvoidBottomInset: false,
 
             // appbar
             appBar: AppBar(
@@ -60,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             // Body
             body: Stack(
               clipBehavior: Clip.none,
-              alignment: Alignment.topCenter,
+              
               children: <Widget>[
                 Positioned(
                   top: 5.h,
@@ -100,16 +99,20 @@ class _LoginPageState extends State<LoginPage> {
                 // Container white
                 Positioned(
                   bottom: 0,
+                  right: 0,
+                  left: 0,
                   child: Container(
                     decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40))),
-                    padding: EdgeInsets.all(30.sp),
+                    padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
                     width: 100.w,
                     height: 70.h,
-                    child: Column(
+
+                    // Listview
+                    child: ListView(
                       children: [
                         // description
                         SizedBox(
@@ -130,80 +133,78 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           child: Form(
                               key: formKey,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // email form
-                                    TextFormField(
-                                      keyboardType: TextInputType.emailAddress,
-                                      validator: MultiValidator([
-                                        EmailValidator(
-                                            errorText: "Invalid Email Format"),
-                                        RequiredValidator(
-                                            errorText:
-                                                "You must enter your email")
-                                      ]),
-                                      onSaved: (String? email) {
-                                        users.email = email!;
-                                      },
-                                      style: TextStyle(color: greyPrimary),
-                                      decoration: const InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          hintText: 'Enter your email',
-                                          prefixIcon: Icon(
-                                            Icons.alternate_email_outlined,
-                                            color: Color.fromRGBO(
-                                                123, 123, 123, 1),
-                                          ),
-                                          fillColor: Color.fromRGBO(
-                                              192, 192, 192, 0.20),
-                                          filled: true),
-                                    ),
-                                    SizedBox(height: 15.sp),
-
-                                    // password form
-                                    TextFormField(
-                                      obscureText: true,
-                                      validator: RequiredValidator(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // email form
+                                  TextFormField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: MultiValidator([
+                                      EmailValidator(
+                                          errorText: "Invalid Email Format"),
+                                      RequiredValidator(
                                           errorText:
-                                              "You must enter your password"),
-                                      onSaved: (String? password) {
-                                        users.password = password!;
-                                      },
-                                      decoration: const InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          hintText: 'Password',
-                                          prefixIcon: Icon(
-                                            Icons.business_center_outlined,
-                                            color: Color.fromRGBO(
-                                                123, 123, 123, 1),
-                                          ),
-                                          fillColor: Color.fromRGBO(
-                                              192, 192, 192, 0.20),
-                                          filled: true),
-                                    )
-                                  ],
-                                ),
+                                              "You must enter your email")
+                                    ]),
+                                    onSaved: (String? email) {
+                                      users.email = email!;
+                                    },
+                                    style: TextStyle(color: greyPrimary),
+                                    decoration: const InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        hintText: 'Enter your email',
+                                        prefixIcon: Icon(
+                                          Icons.alternate_email_outlined,
+                                          color: Color.fromRGBO(
+                                              123, 123, 123, 1),
+                                        ),
+                                        fillColor: Color.fromRGBO(
+                                            192, 192, 192, 0.20),
+                                        filled: true),
+                                  ),
+                                  SizedBox(height: 15.sp),
+
+                                  // password form
+                                  TextFormField(
+                                    obscureText: true,
+                                    validator: RequiredValidator(
+                                        errorText:
+                                            "You must enter your password"),
+                                    onSaved: (String? password) {
+                                      users.password = password!;
+                                    },
+                                    decoration: const InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        hintText: 'Password',
+                                        prefixIcon: Icon(
+                                          Icons.business_center_outlined,
+                                          color: Color.fromRGBO(
+                                              123, 123, 123, 1),
+                                        ),
+                                        fillColor: Color.fromRGBO(
+                                            192, 192, 192, 0.20),
+                                        filled: true),
+                                  )
+                                ],
                               )),
                         ),
 

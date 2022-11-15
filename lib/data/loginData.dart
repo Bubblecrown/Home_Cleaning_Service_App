@@ -5,7 +5,7 @@ class LoginData {
   static var header = capitalize("Welcome, back");
   static var description = "Sign in to your account ";
   static var btnLogin = "login".toUpperCase();
-  static var image = "assets/image/bannerLogin.png";
+  static var image = "assets/image/bannerAccount.png";
 }
 
 String capitalize(String str) {

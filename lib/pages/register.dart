@@ -1,12 +1,16 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:home_cleaning_service_app/ColorScheme.dart';
 import 'package:home_cleaning_service_app/data/Users.dart';
+import 'package:home_cleaning_service_app/data/font.dart';
+import 'package:home_cleaning_service_app/data/registerData.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
+import 'package:sizer/sizer.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -22,10 +26,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    String title = capitalize("home hub");
-    String description = capitalize("Let's make awesome changes to your home.");
-    String btnLogin = capitalize("login");
-    String success = capitalize("your account has been successfully created");
 
     return FutureBuilder(
       future: _initialization,
@@ -41,9 +41,11 @@ class _RegisterPageState extends State<RegisterPage> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
             extendBodyBehindAppBar: true,
-            backgroundColor: Colors.pink,
+            backgroundColor: primary,
+            // resizeToAvoidBottomInset: false,
+
+            // appbar
             appBar: AppBar(
-              title: Text('Register'),
               leading: BackButton(onPressed: (() {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
@@ -53,71 +55,208 @@ class _RegisterPageState extends State<RegisterPage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(title),
-                    Text(description),
-                    SizedBox(
-                      child: Form(
-                          key: formKey,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: MultiValidator([
-                                    EmailValidator(
-                                        errorText: "Invalid Email Format"),
-                                    RequiredValidator(
-                                        errorText: "You must enter your email")
-                                  ]),
-                                  onSaved: (String? email) {
-                                    users.email = email!;
-                                  },
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Email',
-                                      hintText: 'Enter your email'),
-                                ),
-                                TextFormField(
+
+            body: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.topCenter,
+              children: <Widget>[
+                Positioned(
+                  top: 5.h,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        Image.asset(RegisterData.image),
+                        Positioned(
+                          top: 5.h,
+                          width: 50.w,
+                          left: 30.sp,
+                          child: Text(
+                            RegisterData.title,
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontFamily: TextCustom.subBold,
+                                color: white),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10.h,
+                          width: 50.w,
+                          left: 30.sp,
+                          child: Text(RegisterData.header,
+                              style: TextStyle(
+                                  fontSize: 25.sp,
+                                  fontFamily: TextCustom.headerBold,
+                                  color: white)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Container white
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
+                    padding: EdgeInsets.all(30.sp),
+                    width: 100.w,
+                    height: 75.h,
+
+                    child: ListView(
+                      children: [
+                        // description
+                        SizedBox(
+                          width: 70.w,
+                          height: 8.h,
+                          child: Text(
+                            RegisterData.description,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: black,
+                              fontSize: 15.sp,
+                              fontFamily: TextCustom.desBold,
+                            ),
+                          ),
+                        ),
+
+                        // form
+                        SizedBox(
+                          child: Form(
+                              key: formKey,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+
+                                    // email form
+                                    TextFormField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      validator: MultiValidator([
+                                        EmailValidator(
+                                            errorText: RegisterData.emailFormatError),
+                                        RequiredValidator(
+                                            errorText:
+                                                RegisterData.emailCheckBlank)
+                                      ]),
+                                      onSaved: (String? email) {
+                                        users.email = email!;
+                                      },
+                                      style: TextStyle(color: greyPrimary),
+                                      decoration: const InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          hintText: 'Enter your email',
+                                          prefixIcon: Icon(
+                                            Icons.alternate_email_outlined,
+                                            color: Color.fromRGBO(
+                                                123, 123, 123, 1),
+                                          ),
+                                          fillColor: Color.fromRGBO(
+                                              192, 192, 192, 0.20),
+                                          filled: true),
+                                    ),
+                                    SizedBox(height: 15.sp),
+
+                                    // password form
+                                    TextFormField(
+                                      obscureText: true,
+                                      validator: RequiredValidator(
+                                          errorText:
+                                              "You must enter your password"),
+                                      onSaved: (String? password) {
+                                        users.password = password!;
+                                      },
+                                      decoration: const InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          hintText: 'Password',
+                                          prefixIcon: Icon(
+                                            Icons.business_center_outlined,
+                                            color: Color.fromRGBO(
+                                                123, 123, 123, 1),
+                                          ),
+                                          fillColor: Color.fromRGBO(
+                                              192, 192, 192, 0.20),
+                                          filled: true),
+                                    ),
+
+                                    SizedBox(height: 15.sp),
+
+                                    // Confirm password
+                                    TextFormField(
                                   obscureText: true,
                                   validator: RequiredValidator(
                                       errorText:
-                                          "You must enter your password"),
-                                  onSaved: (String? password) {
-                                    users.password = password!;
-                                  },
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Password',
-                                      hintText: 'Enter your Password'),
-                                ),
-                                TextFormField(
-                                  obscureText: true,
-                                  validator: RequiredValidator(
-                                      errorText:
-                                          "You must enter your password"),
+                                          "You must enter your password again."),
                                   onSaved: (String? confirmPassword) {
                                     users.confirmPassword = confirmPassword!;
                                   },
                                   decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Confirm Password',
-                                      hintText: 'Enter your Password'),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          hintText: 'Confirm Password',
+                                          prefixIcon: Icon(
+                                            Icons.business_center_outlined,
+                                            color: Color.fromRGBO(
+                                                123, 123, 123, 1),
+                                          ),
+                                          fillColor: Color.fromRGBO(
+                                              192, 192, 192, 0.20),
+                                          filled: true),
                                 )
-                              ],
-                            ),
-                          )),
-                    ),
-                    SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              
+                                  ],
+                                ),
+                              )),
+                        ),
+
+                        SizedBox(height: 5.h),
+
+                        // login button
+                        SizedBox(
+                            width: 50.w,
+                            height: 7.h,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            primary)),
+                                onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState?.save();
                                 try {
@@ -129,7 +268,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         .then((value) => {
                                               formKey.currentState?.reset(),
                                               Fluttertoast.showToast(
-                                                  msg: success,
+                                                  msg: RegisterData.success,
                                                   gravity: ToastGravity.TOP),
                                               Navigator.pushReplacement(context,
                                                   MaterialPageRoute(
@@ -160,11 +299,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       gravity: ToastGravity.TOP);
                                 }
                               }
-                            },
-                            child: Text(btnLogin))),
-                  ],
+                                },
+                                child: Text(RegisterData.btnSignup))),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         }
