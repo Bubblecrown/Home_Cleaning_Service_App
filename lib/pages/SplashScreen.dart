@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
   
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
-    String title = capitalize('cleanon');
+    String title = capitalize('cleanon.');
     return Scaffold(
       backgroundColor: primary,
       body: Center(

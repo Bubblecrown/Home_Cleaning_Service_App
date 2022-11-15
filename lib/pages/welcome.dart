@@ -85,7 +85,8 @@ class WelcomePage extends StatelessWidget {
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40))),
-                            backgroundColor: MaterialStateProperty.all<Color>(primary)),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(primary)),
                         onPressed: () {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
@@ -101,10 +102,21 @@ class WelcomePage extends StatelessWidget {
                     text: TextSpan(children: [
                       TextSpan(
                           text: WelcomeData.textHyperlink,
-                          style: TextStyle(color: black, fontFamily: TextCustom.desThin, fontSize: 8.sp)),
+                          style: TextStyle(
+                              color: black,
+                              fontFamily: TextCustom.desThin,
+                              fontSize: 8.sp)),
+                      WidgetSpan(
+                          child: SizedBox(
+                        height: 4.h,
+                        width: 4.sp,
+                      )),
                       TextSpan(
                           text: WelcomeData.btnSignup,
-                          style: TextStyle(color: black),
+                          style: TextStyle(
+                              color: primary,
+                              fontFamily: TextCustom.desMedium,
+                              fontSize: 8.sp),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushReplacement(context,
