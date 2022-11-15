@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     String title = capitalize('cleanon');
@@ -43,11 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
               title,
               style: TextStyle(
                   color: white,
-                  fontSize: 48.0.sp,
+                  fontSize: 40.0.sp,
                   fontFamily: TextCustom.textBold),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 10,
+              height: 15.sp,
               ),
             SpinKitSpinningLines(
               color: white,
