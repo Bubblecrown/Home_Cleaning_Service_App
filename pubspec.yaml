@@ -79,13 +79,40 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Bold
+    # KulimPark
+    - family: subBold
       fonts:
-        - asset: assets/fonts/KulimPark-Bold.ttf
+        - asset: assets/fonts/KulimPark/KulimPark-Bold.ttf
 
-    - family: Regular
+    - family: subRegular
       fonts:
-        - asset: assets/fonts/KulimPark-Regular.ttf
+        - asset: assets/fonts/KulimPark/KulimPark-Regular.ttf
+
+    # LibreBodoni
+    - family: headerBold
+      fonts:
+        - asset: assets/fonts/LibreBodoni/LibreBodoni-Bold.ttf
+
+    - family: headerRegular
+      fonts:
+        - asset: assets/fonts/LibreBodoni/LibreBodoni-Regular.ttf
+
+    # Roboto
+    - family: desBold
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+
+    - family: desMedium
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+
+    - family: desRegular
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+
+    - family: desThin
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
 
     # - family: kulimpark
     #   fonts:

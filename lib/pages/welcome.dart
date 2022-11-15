@@ -1,20 +1,19 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/data/font.dart';
+import 'package:home_cleaning_service_app/data/welcomeData.dart';
 import 'package:home_cleaning_service_app/pages/login.dart';
 import 'package:home_cleaning_service_app/pages/register.dart';
+import 'package:sizer/sizer.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String btnSignup = capitalize("create account");
-    String btnLogin = capitalize("continues with your account");
-    String title = capitalize("clean hub");
-    String description =
-        "Keep your home clean and pristine by enlisting the help of a professional cleaner as often as you need.";
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -24,62 +23,98 @@ class WelcomePage extends StatelessWidget {
             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/welcome/banner.png"),
+                  // sub title
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 1.5,
                     child: Text(
-                      title,
+                      WelcomeData.subtitle,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: primary,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Bold"
-                      ),
+                          color: Secondary,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: TextCustom.subBold),
                     ),
                   ),
+                  // end sub title
+
+                  // title
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.height * 0.175,
+                    width: MediaQuery.of(context).size.width * 1.5,
                     child: Text(
-                      description,
+                      WelcomeData.title,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: textSecondary,
-                        fontSize: 14,
-                      ),
+                          color: primary,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: TextCustom.headerBold),
                     ),
                   ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary: primary),
-                            onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return LoginPage();
-                              }));
-                            },
-                            child: Text(btnLogin)),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(primary: primary),
-                            onPressed: () {
+                  // end title
+
+                  // image
+                  Image.asset(WelcomeData.image),
+                  // end image
+
+                  // description
+                  SizedBox(
+                    width: 70.w,
+                    height: 15.h,
+                    child: Text(
+                      WelcomeData.description,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: black,
+                          fontSize: 9.sp,
+                          fontFamily: TextCustom.desMedium,
+                          height: 1.sp),
+                    ),
+                  ),
+                  // end description
+
+                  // login button
+                  SizedBox(
+                    width: 50.w,
+                    height: 7.h,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40))),
+                            backgroundColor: MaterialStateProperty.all<Color>(primary)),
+                        onPressed: () {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return LoginPage();
+                          }));
+                        },
+                        child: Text(WelcomeData.btnLogin)),
+                  ),
+                  // end login button
+
+                  // signup htperlink
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: WelcomeData.textHyperlink,
+                          style: TextStyle(color: black, fontFamily: TextCustom.desThin, fontSize: 8.sp)),
+                      TextSpan(
+                          text: WelcomeData.btnSignup,
+                          style: TextStyle(color: black),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
                                 return RegisterPage();
                               }));
-                            },
-                            child: Text(btnSignup)),
-                      )
-                    ],
+                            }),
+                    ]),
                   ),
+                  // end signup htperlink
                 ],
               ),
             ),
