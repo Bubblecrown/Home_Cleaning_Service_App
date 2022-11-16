@@ -67,9 +67,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     child: Stack(
                       children: [
+
+                        // image and title
                         Image.asset(RegisterData.image),
+
+                        // sub title
                         Positioned(
-                          top: 5.h,
+                          top: 6.h,
                           width: 50.w,
                           left: 30.sp,
                           child: Text(
@@ -80,8 +84,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: white),
                           ),
                         ),
+
+                        // title
                         Positioned(
-                          top: 10.h,
+                          top: 12.h,
                           width: 50.w,
                           left: 30.sp,
                           child: Text(RegisterData.header,
@@ -110,6 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                     child: ListView(
                       children: [
+                        
                         // description
                         SizedBox(
                           width: 70.w,

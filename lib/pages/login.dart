@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers, dead_code, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/NavigationBar.dart';
 import 'package:home_cleaning_service_app/data/loginData.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
 
 import '../data/Users.dart';
@@ -59,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
             // Body
             body: Stack(
               clipBehavior: Clip.none,
-              
               children: <Widget>[
                 Positioned(
                   top: 5.h,
@@ -165,11 +166,11 @@ class _LoginPageState extends State<LoginPage> {
                                         hintText: 'Enter your email',
                                         prefixIcon: Icon(
                                           Icons.alternate_email_outlined,
-                                          color: Color.fromRGBO(
-                                              123, 123, 123, 1),
+                                          color:
+                                              Color.fromRGBO(123, 123, 123, 1),
                                         ),
-                                        fillColor: Color.fromRGBO(
-                                            192, 192, 192, 0.20),
+                                        fillColor:
+                                            Color.fromRGBO(192, 192, 192, 0.20),
                                         filled: true),
                                   ),
                                   SizedBox(height: 15.sp),
@@ -197,11 +198,11 @@ class _LoginPageState extends State<LoginPage> {
                                         hintText: 'Password',
                                         prefixIcon: Icon(
                                           Icons.business_center_outlined,
-                                          color: Color.fromRGBO(
-                                              123, 123, 123, 1),
+                                          color:
+                                              Color.fromRGBO(123, 123, 123, 1),
                                         ),
-                                        fillColor: Color.fromRGBO(
-                                            192, 192, 192, 0.20),
+                                        fillColor:
+                                            Color.fromRGBO(192, 192, 192, 0.20),
                                         filled: true),
                                   )
                                 ],
@@ -228,17 +229,31 @@ class _LoginPageState extends State<LoginPage> {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState?.save();
                                     try {
+                                      bool hasInternet = false;
+                                      final notify = hasInternet
+                                          ? 'Internet already'
+                                          : 'No Internet';
+                                          hasInternet =
+                                              await InternetConnectionChecker()
+                                                  .hasConnection;
+                                      print(notify);
+                                      Fluttertoast.showToast(
+                                          msg: '${notify}',
+                                          gravity: ToastGravity.TOP);
                                       await FirebaseAuth.instance
                                           .signInWithEmailAndPassword(
                                               email: users.email,
                                               password: users.password)
                                           .then((value) => {
                                                 formKey.currentState?.reset(),
+                                              })
+                                          .then((value) => {
+                                                Navigator.pushReplacement(
+                                                    context, MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return NavigationBarBtn();
+                                                }))
                                               });
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return HomePage();
-                                      }));
                                     } on FirebaseAuthException catch (e) {
                                       Fluttertoast.showToast(
                                           msg: '${e.message}',
