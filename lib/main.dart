@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/pages/SplashScreen.dart';
 import 'package:sizer/sizer.dart';
+import 'package:home_cleaning_service_app/wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,12 +25,13 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             title: 'Home cleaning service app',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const LocationPage());
+            home: Wrapper()
+        );
       }
     });
   }

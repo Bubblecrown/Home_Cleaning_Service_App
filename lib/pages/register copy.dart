@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(email: '', password: '', confirmPassword: '');
+Users users = Users(uid: '',username:'',email: '', password: '', confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+Future storeUserAccount() async {
+  await FirebaseFirestore.instance.collection('user_accounts').add({})
+}
+
   @override
   Widget build(BuildContext context) {
     String title = capitalize("home hub");

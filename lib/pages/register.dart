@@ -12,6 +12,8 @@ import 'package:home_cleaning_service_app/data/registerData.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 
+import '../services/database.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -21,7 +23,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(email: '', password: '', confirmPassword: '');
+  Users users = Users(uid: '',username:'',email: '', password: '', confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
@@ -143,6 +145,44 @@ class _RegisterPageState extends State<RegisterPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
+
+                                    // username form
+                                    TextFormField(
+                                      keyboardType: TextInputType.name,
+                                      validator: MultiValidator([
+                                        
+                                        RequiredValidator(
+                                            errorText:
+                                                'You must enter your username.')
+                                      ]),
+                                      onSaved: (String? username) {
+                                        users.username = username!;
+                                      },
+                                      style: TextStyle(color: greyPrimary),
+                                      decoration: const InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30))),
+                                          hintText: 'Enter your username',
+                                          prefixIcon: Icon(
+                                            Icons.alternate_email_outlined,
+                                            color: Color.fromRGBO(
+                                                123, 123, 123, 1),
+                                          ),
+                                          fillColor: Color.fromRGBO(
+                                              192, 192, 192, 0.20),
+                                          filled: true),
+                                    ),
+                                    // end username form
+
+                                    SizedBox(height: 15.sp),
 
                                     // email form
                                     TextFormField(
@@ -325,3 +365,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
