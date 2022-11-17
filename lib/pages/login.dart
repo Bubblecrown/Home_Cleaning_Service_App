@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
-import 'package:home_cleaning_service_app/NavigationBar.dart';
+import 'package:home_cleaning_service_app/shared/NavigationBar.dart';
 import 'package:home_cleaning_service_app/data/loginData.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
 
-import '../data/Users.dart';
+import '../model/Users.dart';
 import '../data/font.dart';
 
 class LoginPage extends StatefulWidget {

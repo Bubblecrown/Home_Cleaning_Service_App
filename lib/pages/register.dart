@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
-import 'package:home_cleaning_service_app/data/Users.dart';
+import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/data/font.dart';
 import 'package:home_cleaning_service_app/data/registerData.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
@@ -55,6 +55,8 @@ class _RegisterPageState extends State<RegisterPage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
+            // end appbar
+
 
             body: Stack(
               clipBehavior: Clip.none,

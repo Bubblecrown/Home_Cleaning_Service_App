@@ -10,7 +10,7 @@ import 'package:home_cleaning_service_app/pages/Reserve.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 
-import '../data/Users.dart';
+import '../model/Users.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

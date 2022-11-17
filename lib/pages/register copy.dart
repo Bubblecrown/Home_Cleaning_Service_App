@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
-import 'package:home_cleaning_service_app/data/Users.dart';
+import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 
 class RegisterPage extends StatefulWidget {
