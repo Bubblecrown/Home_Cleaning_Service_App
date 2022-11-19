@@ -11,6 +11,7 @@ import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/data/font.dart';
 import 'package:home_cleaning_service_app/data/registerData.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
+import 'package:home_cleaning_service_app/services/UserAccount.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
 
@@ -361,22 +362,25 @@ class _RegisterPageState extends State<RegisterPage> {
                                     try {
                                       if (users.password ==
                                           users.confirmPassword) {
-                                            bool hasInternet = false;
-                                      final notify = hasInternet
-                                          ? 'Internet already'
-                                          : 'No Internet';
-                                          hasInternet =
-                                              await InternetConnectionChecker()
-                                                  .hasConnection;
-                                      print(notify);
-                                      Fluttertoast.showToast(
-                                          msg: '${notify}',
-                                          gravity: ToastGravity.TOP);
+                                        bool hasInternet = false;
+                                        final notify = hasInternet
+                                            ? 'Internet already'
+                                            : 'No Internet';
+                                        hasInternet =
+                                            await InternetConnectionChecker()
+                                                .hasConnection;
+                                        print(notify);
+                                        Fluttertoast.showToast(
+                                            msg: '${notify}',
+                                            gravity: ToastGravity.TOP);
                                         await FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
                                                 email: users.email,
                                                 password: users.password)
-                                            .then((value) async => {
+                                            .then((signedInUser) {
+                                          UserManagement().storeNewUser(
+                                              signedInUser.user, context);
+                                        }).then((value) async => {
                                                   await storeUserAccount(
                                                       users.firstName,
                                                       users.lastName,
