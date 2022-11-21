@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers, dead_code, unnecessary_string_interpolations
 
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,12 +37,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future storeUserAccount(
       String firstName, String lastName, String email) async {
-    await FirebaseFirestore.instance
-        .collection('user_accounts')
-        .add({'first_name': firstName, 'last_name': lastName, 'email': email});
+    await FirebaseFirestore.instance.collection('user_accounts').add({
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+    });
   }
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -377,14 +381,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                             .createUserWithEmailAndPassword(
                                                 email: users.email,
                                                 password: users.password)
-                                            .then((signedInUser) {
-                                          UserManagement().storeNewUser(
-                                              signedInUser.user, context);
-                                        }).then((value) async => {
-                                                  await storeUserAccount(
-                                                      users.firstName,
-                                                      users.lastName,
-                                                      users.email),
+                                            .then((value) => {
+                                                  storeUserAccount(
+                                                    users.firstName,
+                                                    users.lastName,
+                                                    users.email,
+                                                  ),
                                                   formKey.currentState?.reset(),
                                                   Fluttertoast.showToast(
                                                       msg: RegisterData.success,

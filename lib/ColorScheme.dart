@@ -3,18 +3,20 @@
 import 'package:flutter/material.dart';
 
 Color primary = Color(hexColor('#749BFA'));
-Color Secondary =  Color(hexColor('#ACC4FF'));
-Color white =  Color(hexColor('##FFFFFF'));
-Color black =  Color(hexColor('#4F4F4F'));
-Color greyPrimary =  Color(hexColor('#7B7B7B'));
-Color grey =  Color(hexColor('#C0C0C0'));
+Color Secondary = Color(hexColor('#ACC4FF'));
+Color white = Color(hexColor('#FFFFFF'));
+Color whiteSecondary = Color(hexColor('#E3EBFF'));
+Color black = Color(hexColor('#4F4F4F'));
+Color greyPrimary = Color(hexColor('#7B7B7B'));
+Color grey = Color(hexColor('#C0C0C0'));
+Color bgWhite = Color(hexColor('#F8FAFF'));
+Color bgBlue = Color.fromRGBO(156, 185, 255, 1);
 
-Color yellow =  Color(hexColor('#eec045'));
-Color green =  Color(hexColor('#4e9f7f'));
-Color pinkSecondary =  Color(hexColor('#f4afc2'));
-Color blueSecondary =  Color(hexColor('#a8bbf8'));
-Color yellowSecondary =  Color(hexColor('#facc62'));
+Color yellow = Color(hexColor('#eec045'));
+Color green = Color(hexColor('#4e9f7f'));
+Color pinkSecondary = Color(hexColor('#f4afc2'));
 
+Color yellowSecondary = Color(hexColor('#facc62'));
 
 int hexColor(String color) {
   //adding prefix

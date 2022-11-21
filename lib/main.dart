@@ -7,7 +7,9 @@ import 'package:home_cleaning_service_app/pages/SplashScreen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:home_cleaning_service_app/wrapper.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -30,8 +32,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: Wrapper()
-        );
+            home: Wrapper());
       }
     });
   }

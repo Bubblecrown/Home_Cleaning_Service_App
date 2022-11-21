@@ -25,7 +25,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(uid: '', firstName: '', lastName: '', email: '', password: '', confirmPassword: '');
+  Users users = Users(
+      uid: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
@@ -233,9 +239,9 @@ class _LoginPageState extends State<LoginPage> {
                                       final notify = hasInternet
                                           ? 'Internet already'
                                           : 'No Internet';
-                                          hasInternet =
-                                              await InternetConnectionChecker()
-                                                  .hasConnection;
+                                      hasInternet =
+                                          await InternetConnectionChecker()
+                                              .hasConnection;
                                       print(notify);
                                       Fluttertoast.showToast(
                                           msg: '${notify}',
