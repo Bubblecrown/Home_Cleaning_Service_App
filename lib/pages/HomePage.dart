@@ -12,6 +12,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
 import 'package:home_cleaning_service_app/data/font.dart';
+import 'package:home_cleaning_service_app/model/service.dart';
 import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
 import 'package:home_cleaning_service_app/pages/Reserve.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: 20.h,
+            top: 18.h,
             left: 0.w,
             right: 0.w,
             child: Container(
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: 45.h,
+            top: 42.h,
             left: 8.w,
             right: 8.w,
             child: Text(
@@ -133,6 +134,49 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 30.sp,
                   fontFamily: TextCustom.subBold),
             ),
+          ),
+          Positioned(
+            top: 50.h,
+            left: 0.w,
+            right: 0.w,
+            child: Column(children: [
+              Row(
+                children: [
+                  Container(
+                    width: 50.w,
+                    child: Image.network(
+                      service[0],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                    width: 50.w,
+                    child: Image.network(
+                      service[1],
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 50.w,
+                    child: Image.network(
+                      service[2],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                    width: 50.w,
+                    child: Image.network(
+                      service[3],
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                ],
+              )
+            ]),
           )
         ],
       ),
