@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -12,6 +17,7 @@ import 'package:home_cleaning_service_app/pages/Reserve.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 
+import '../model/Carousel.dart';
 import '../model/Users.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                     BorderRadius.only(bottomLeft: Radius.circular(100))),
           ),
           Positioned(
-            top: 8.h,
+            top: 5.h,
             left: 8.w,
             right: 8.w,
             child: Container(
@@ -93,12 +99,57 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+          ),
+          Positioned(
+            top: 20.h,
+            left: 0.w,
+            right: 0.w,
+            child: Container(
+              child: CarouselSlider.builder(
+                itemCount: dataList.length,
+                itemBuilder: ((context, index, realIndex) {
+                  final imageList = dataList[index];
+                  return buildImage(imageList, index);
+                }),
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: false,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 0.7,
+                  aspectRatio: 1.9,
+                  initialPage: 2,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 45.h,
+            left: 8.w,
+            right: 8.w,
+            child: Text(
+              "Services",
+              style: TextStyle(
+                  color: primary,
+                  fontSize: 30.sp,
+                  fontFamily: TextCustom.subBold),
+            ),
           )
         ],
       ),
     );
   }
+
+  Widget buildImage(String imageList, int index) => Container(
+        width: 100.w,
+        child: Image.network(
+          imageList,
+          fit: BoxFit.cover,
+        ),
+      );
 }
+
+
+
 
 // Center(
 //   child: ListView(
@@ -126,3 +177,22 @@ class _HomePageState extends State<HomePage> {
 //     ],
 //   ),
 // ),
+
+
+// StreamBuilder(
+//             stream: slides,
+//             builder: (context, AsyncSnapshot snap) {
+//               List slidesItem = snap.data.toList();
+//               if (snap.hasError) {
+//                 return Text("${snap.error}");
+//               }
+//               if (snap.connectionState == ConnectionState.waiting) {
+//                 return CircularProgressIndicator();
+//               }
+//               return PageView.builder(
+//                 itemCount: ,
+//                 itemBuilder: (context, index) {
+
+//               });
+//             },
+//           )
