@@ -144,9 +144,17 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     width: 50.w,
-                    child: Image.network(
-                      service[0],
-                      fit: BoxFit.cover,
+                    child: GestureDetector(
+                      child: Image.network(
+                        service[0],
+                        fit: BoxFit.cover,
+                      ),
+                      onTap: (() {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ReservePage();
+                        }));
+                      }),
                     ),
                   ),
                   Container(
