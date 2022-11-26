@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("firstName : ${firstName}"),
-                Text("firstName : ${auth.currentUser?.email}"),
+                Text("firstName : ${auth.currentUser?.uid}"),
               ],
             ),
           ),

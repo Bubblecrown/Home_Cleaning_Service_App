@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
+import 'package:home_cleaning_service_app/pages/Reserve.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 
 class Wrapper extends StatelessWidget {
@@ -12,6 +13,6 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WelcomePage();
+    return LocationPage();
   }
 }

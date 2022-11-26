@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, avoid_unnecessary_containers, dead_code, unnecessary_string_interpolations
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
+            
             extendBodyBehindAppBar: true,
             backgroundColor: primary,
             // resizeToAvoidBottomInset: false,
@@ -156,6 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         // form
                         SizedBox(
+                          
                           child: Form(
                               key: formKey,
                               child: SingleChildScrollView(
