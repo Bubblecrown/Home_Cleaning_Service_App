@@ -45,11 +45,15 @@ dependencies:
   sizer: ^2.0.15
   page_transition: ^2.0.9
   internet_connection_checker: ^1.0.0+1
+  # Google map
   google_maps_flutter: ^2.2.1
+  geolocator: ^9.0.2
+  geocoder: ^0.2.1
+
   carousel_slider: ^4.1.1
   equatable: ^2.0.5
   flutter_bloc: ^8.0.1
-  intl: ^0.17.0
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

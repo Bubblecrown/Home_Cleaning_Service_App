@@ -111,7 +111,7 @@ class _LocationPageState extends State<LocationPage> {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40), topRight: Radius.circular(40))),
           width: 100.w,
-          height: 75.h,
+          height: 100.h,
           child: SingleChildScrollView(
             padding: EdgeInsets.all(30.sp),
             child: Form(
