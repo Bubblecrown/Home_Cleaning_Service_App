@@ -49,6 +49,8 @@ dependencies:
   google_maps_flutter: ^2.2.1
   geolocator: ^9.0.2
   geocoder: ^0.2.1
+  geocoder2: ^1.4.0
+  permission: ^0.1.7
 
   carousel_slider: ^4.1.1
   equatable: ^2.0.5

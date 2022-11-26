@@ -64,11 +64,10 @@ class _MyWidgetState extends State<MapLocationPage> {
       // end appbar
 
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: ListView(
           children: [
             SizedBox(
-              height: 90.h,
+              height: 100.h,
               child: GoogleMap(
                 onTap: ((tap) async {
                   final coordinated =
@@ -97,7 +96,8 @@ class _MyWidgetState extends State<MapLocationPage> {
                   });
                 },
                 initialCameraPosition: CameraPosition(
-                    target: LatLng(position!.latitude, position!.longitude),
+                    target: LatLng(
+                        position?.latitude ?? 0, position?.longitude ?? 0),
                     zoom: 15.0),
                 markers: Set<Marker>.of(markers.values),
               ),
