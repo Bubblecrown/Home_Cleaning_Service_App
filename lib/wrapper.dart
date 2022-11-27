@@ -14,6 +14,6 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MapLocationPage();
+    return LocationPage();
   }
 }

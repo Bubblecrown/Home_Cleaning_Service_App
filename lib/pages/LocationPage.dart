@@ -66,6 +66,8 @@ class _LocationPageState extends State<LocationPage> {
     '7 hr.',
     '8 hr.',
   ];
+
+  DateTime dateTime = DateTime.now();
   void storeBooking(String place_type_selected, String addressDetail,
       String province_selected, String phonenumber) async {
     await FirebaseFirestore.instance.collection('booking_list').add({
@@ -287,6 +289,27 @@ class _LocationPageState extends State<LocationPage> {
                   SizedBox(height: 15.sp),
                   // end phonenumber form
 
+                  // Date form
+                  SizedBox(
+                      width: double.infinity,
+                      height: 7.h,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40))),
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(primary)),
+                          onPressed: () async {
+                            final date = await pickDate();
+                            if (date == null) return;
+                            setState(() => dateTime = date);
+                          },
+                          child: Text(
+                              '${dateTime.day}/${dateTime.month}/${dateTime.year}'))),
+                  // end Date form
+
                   // submit button
                   SizedBox(
                       width: double.infinity,
@@ -334,4 +357,10 @@ class _LocationPageState extends State<LocationPage> {
   }
   // );
   // }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100));
 }
