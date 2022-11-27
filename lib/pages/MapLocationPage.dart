@@ -28,14 +28,14 @@ class _MyWidgetState extends State<MapLocationPage> {
     Marker _marker = Marker(
         markerId: markerId,
         position: LatLng(lat, long),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
         infoWindow: InfoWindow(snippet: 'Address'));
     setState(() {
       markers[markerId] = _marker;
     });
   }
 
-  void getCurrentLocation() async {
+  Future getCurrentLocation() async {
     Position currentLocation =
         await GeolocatorPlatform.instance.getCurrentPosition();
     setState(() {
@@ -52,59 +52,65 @@ class _MyWidgetState extends State<MapLocationPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return FutureBuilder(
+    //   future: getCurrentLocation(),
+    //   builder: (context, AsyncSnapshot snapshot) {
+    //     if (snapshot.data == null) {
+    //       return Center(child: CircularProgressIndicator());
+    //     }
+
+    //   },
+    // );
     return Scaffold(
-      // appbar
-      appBar: AppBar(
-        leading: BackButton(onPressed: (() {
-          Navigator.of(context).pop();
-        })),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      // end appbar
+      // // appbar
+      // appBar: AppBar(
+      //   leading: BackButton(onPressed: (() {
+      //     Navigator.of(context).pop();
+      //   })),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
+      // // end appbar
 
       body: Container(
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 100.h,
-              child: GoogleMap(
-                onTap: ((tap) async {
-                  final coordinated =
-                      new geo.Coordinates(tap.latitude, tap.longitude);
-                  var address = await geo.Geocoder.local
-                      .findAddressesFromCoordinates(coordinated);
-                  var firstAddress = address.first;
-                  getMarkers(tap.latitude, tap.longitude);
-                  await FirebaseFirestore.instance
-                      .collection('booking_list')
-                      .add({
-                    'latitude': tap.latitude,
-                    'longitude': tap.longitude,
-                    'Address': firstAddress.addressLine,
-                  });
-                  setState(() {
-                    addressLocation = firstAddress.addressLine;
-                  });
-                }),
-                mapType: MapType.hybrid,
-                compassEnabled: true,
-                trafficEnabled: true,
-                onMapCreated: (GoogleMapController controller) {
-                  setState(() {
-                    googleMapController = controller;
-                  });
-                },
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        position?.latitude ?? 0, position?.longitude ?? 0),
-                    zoom: 15.0),
-                markers: Set<Marker>.of(markers.values),
-              ),
-            ),
-            Text('address:${addressLocation}')
-          ],
+        child: SizedBox(
+          width: 100.w,
+          height: 100.h,
+          child: GoogleMap(
+            onTap: ((tap) async {
+              final coordinated =
+                  new geo.Coordinates(tap.latitude, tap.longitude);
+              var address = await geo.Geocoder.local
+                  .findAddressesFromCoordinates(coordinated);
+              var firstAddress = address.first;
+              getMarkers(tap.latitude, tap.longitude);
+              await FirebaseFirestore.instance.collection('booking_list').add({
+                'latitude': tap.latitude,
+                'longitude': tap.longitude,
+                'Address': firstAddress.addressLine,
+              });
+              setState(() {
+                addressLocation = firstAddress.addressLine;
+              });
+            }),
+            mapType: MapType.hybrid,
+            compassEnabled: true,
+            trafficEnabled: true,
+            myLocationEnabled: true,
+            zoomControlsEnabled: true,
+            onMapCreated: (GoogleMapController controller) {
+              setState(() {
+                googleMapController = controller;
+              });
+            },
+            initialCameraPosition: CameraPosition(
+                target: LatLng(position?.latitude ?? 13.7563,
+                    position?.longitude ?? 100.5018),
+                zoom: 15.0),
+            markers: Set<Marker>.of(markers.values),
+          ),
         ),
+        // Text('address:${addressLocation}')
       ),
     );
   }
