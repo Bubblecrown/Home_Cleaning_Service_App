@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:geocoder/geocoder.dart' as geo;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:home_cleaning_service_app/ColorScheme.dart';
 import 'package:sizer/sizer.dart';
 
 class MapLocationPage extends StatefulWidget {
@@ -63,13 +64,14 @@ class _MyWidgetState extends State<MapLocationPage> {
     // );
     return Scaffold(
       // // appbar
-      // appBar: AppBar(
-      //   leading: BackButton(onPressed: (() {
-      //     Navigator.of(context).pop();
-      //   })),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: white),
+        leading: BackButton(onPressed: (() {
+          Navigator.of(context).pop();
+        })),
+        backgroundColor: primary,
+        elevation: 0,
+      ),
       // // end appbar
 
       body: Container(
