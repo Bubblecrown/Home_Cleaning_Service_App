@@ -28,7 +28,7 @@ class _MyWidgetState extends State<MapLocationPage> {
     Marker _marker = Marker(
         markerId: markerId,
         position: LatLng(lat, long),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         infoWindow: InfoWindow(snippet: 'Address'));
     setState(() {
       markers[markerId] = _marker;

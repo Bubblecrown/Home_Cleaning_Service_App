@@ -69,17 +69,20 @@ class _LocationPageState extends State<LocationPage> {
 
   DateTime dateTime = DateTime.now();
   void storeBooking(String place_type_selected, String addressDetail,
-      String province_selected, String phonenumber) async {
+      String province_selected, String phonenumber, DateTime dateTime) async {
     await FirebaseFirestore.instance.collection('booking_list').add({
       'place_type': place_type_selected,
       'address_detail': addressDetail,
       'province': province_selected,
       'phone_number': phonenumber,
+      'booking_time': dateTime
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final hour = dateTime.hour.toString().padLeft(2, '0');
+    final minute = dateTime.minute.toString().padLeft(2, '0');
     // return
     // FutureBuilder(
     //   future: Firebase.initializeApp(),
@@ -216,7 +219,7 @@ class _LocationPageState extends State<LocationPage> {
                           Icons.home_outlined,
                           color: Color.fromRGBO(123, 123, 123, 1),
                         ),
-                        fillColor: Color.fromRGBO(192, 192, 192, 0.20),
+                        fillColor: Color.fromRGBO(242, 242, 242, 1),
                         filled: true),
                   ),
                   SizedBox(height: 15.sp),
@@ -280,35 +283,86 @@ class _LocationPageState extends State<LocationPage> {
                                 BorderRadius.all(Radius.circular(30))),
                         hintText: 'Enter your mobile phone',
                         prefixIcon: Icon(
-                          Icons.home_outlined,
+                          Icons.phone_android_outlined,
                           color: Color.fromRGBO(123, 123, 123, 1),
                         ),
-                        fillColor: Color.fromRGBO(192, 192, 192, 0.20),
+                        fillColor: Color.fromRGBO(242, 242, 242, 1),
                         filled: true),
                   ),
                   SizedBox(height: 15.sp),
                   // end phonenumber form
 
+                  Text('When do you need this service?'),
+                  SizedBox(height: 10.sp),
+                  // end label
+
                   // Date form
-                  SizedBox(
-                      width: double.infinity,
-                      height: 7.h,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40))),
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(primary)),
-                          onPressed: () async {
-                            final date = await pickDate();
-                            if (date == null) return;
-                            setState(() => dateTime = date);
-                          },
-                          child: Text(
-                              '${dateTime.day}/${dateTime.month}/${dateTime.year}'))),
-                  // end Date form
+                  Row(
+                    children: [
+                      SizedBox(
+                          width: 38.w,
+                          height: 7.h,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40))),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Color.fromRGBO(242, 242, 242, 1))),
+                              onPressed: () async {
+                                final date = await pickDate();
+                                if (date == null) return;
+
+                                final newDateTime = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    dateTime.hour,
+                                    dateTime.minute);
+                                setState(() => dateTime = newDateTime);
+                              },
+                              child: Text(
+                                  '${dateTime.day}/${dateTime.month}/${dateTime.year}',
+                                  style: TextStyle(color: greyPrimary)))),
+                      // end Date form
+                      Spacer(),
+                      // Time form
+                      SizedBox(
+                          width: 38.w,
+                          height: 7.h,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40))),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color.fromRGBO(242, 242, 242, 1)),
+                              ),
+                              onPressed: () async {
+                                final time = await pickTime();
+                                if (time == null) return;
+                                final newDateTime = DateTime(
+                                    dateTime.year,
+                                    dateTime.month,
+                                    dateTime.day,
+                                    time.hour,
+                                    time.minute);
+                                setState(() => dateTime = newDateTime);
+                              },
+                              child: Text(
+                                '${dateTime.hour}:${dateTime.minute}',
+                                style: TextStyle(color: greyPrimary),
+                              ))),
+                    ],
+                  ),
+                  SizedBox(height: 15.sp),
+                  // end Time form
 
                   // submit button
                   SizedBox(
@@ -330,18 +384,14 @@ class _LocationPageState extends State<LocationPage> {
                             //   formKey.currentState?.save();
                             // ignore: unrelated_type_equality_checks
                             if (formKey.currentState!.validate()) {
-                              storeBooking(
-                                place_type_selected,
-                                addressDetail,
-                                province_selected,
-                                phonenumber,
-                              );
+                              storeBooking(place_type_selected, addressDetail,
+                                  province_selected, phonenumber, dateTime);
                             }
 
                             //   formKey.currentState?.reset();
                             // }
                           },
-                          child: Text('add'))),
+                          child: Text('CONFIRM'))),
                   // end submit button
                 ],
               ),
@@ -361,6 +411,9 @@ class _LocationPageState extends State<LocationPage> {
   Future<DateTime?> pickDate() => showDatePicker(
       context: context,
       initialDate: dateTime,
-      firstDate: DateTime(2020),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       lastDate: DateTime(2100));
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 }

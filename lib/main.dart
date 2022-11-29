@@ -20,6 +20,9 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  double getElevation(Set<MaterialState> states) {
+    return 0;
+  }
 
   // This widget is the root of your application.
   @override
@@ -29,9 +32,12 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Home cleaning service app',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+            theme: ThemeData.light().copyWith(
+                //this is the property that affects elevated buttons
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ButtonStyle(
+                        elevation:
+                            MaterialStateProperty.resolveWith(getElevation)))),
             home: Wrapper());
       }
     });
