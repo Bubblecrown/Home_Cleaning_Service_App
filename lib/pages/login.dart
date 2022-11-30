@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/shared/NavigationBar.dart';
 import 'package:home_cleaning_service_app/data/loginData.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
@@ -14,7 +14,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
 
 import '../model/Users.dart';
-import '../data/font.dart';
+import '../shared/font.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

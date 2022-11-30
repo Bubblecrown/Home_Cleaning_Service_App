@@ -4,7 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:home_cleaning_service_app/pages/welcome.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/model/Users.dart';
+import 'package:home_cleaning_service_app/shared/font.dart';
+import 'package:sizer/sizer.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -68,15 +72,106 @@ class _ProfilePageState extends State<ProfilePage> {
     //     if (snapshot.connectionState != ConnectionState.done)
     //       return Text("Loading data...Please wait");
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Name : ${auth.currentUser?.displayName}"),
-          ],
+        body: Stack(
+      children: [
+        Container(
+          color: bgBlueWhite,
+          height: double.infinity,
+          width: double.infinity,
         ),
-      ),
-    );
+        Container(
+            height: 40.h,
+            decoration: BoxDecoration(
+                color: primary,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(100),
+                    bottomRight: Radius.circular(100)))),
+        Positioned(
+          top: 20.h,
+          left: 10.w,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 10.h,
+                // white container
+                child: Container(
+                  width: 80.w,
+                  height: 30.h,
+                  decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.all(Radius.circular(60))),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.h),
+                      Text(
+                        "${auth.currentUser?.displayName}",
+                        style: TextStyle(
+                            fontSize: 20.sp, fontFamily: TextCustom.desMedium),
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "${auth.currentUser?.email}",
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            fontFamily: TextCustom.desMedium,
+                            color: grey),
+                      ),
+                      SizedBox(height: 3.h),
+                      SizedBox(
+                          width: 60.w,
+                          height: 5.h,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40))),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          logout)),
+                              onPressed: () async {
+                                auth.signOut().then((value) => {
+                                      Navigator.pushReplacement(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return WelcomePage();
+                                      }))
+                                    });
+                              },
+                              child: Text('LOG OUT'))),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 80.w,
+                height: 50.h,
+                // decoration: BoxDecoration(
+                //   color: black,
+                // ),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: CircleAvatar(
+                    radius: 70,
+                    child: Image.asset(
+                      "assets/image/profile.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    )
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text("Name : ${auth.currentUser?.displayName}"),
+        //   ],
+        // ),
+        );
     //   },
     // );
   }

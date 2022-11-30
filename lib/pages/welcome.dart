@@ -2,8 +2,8 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:home_cleaning_service_app/ColorScheme.dart';
-import 'package:home_cleaning_service_app/data/font.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
+import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/data/welcomeData.dart';
 import 'package:home_cleaning_service_app/pages/login.dart';
 import 'package:home_cleaning_service_app/pages/register.dart';

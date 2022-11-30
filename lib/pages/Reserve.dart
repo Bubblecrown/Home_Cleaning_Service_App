@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/data/reserveData.dart';
 import 'package:sizer/sizer.dart';
 

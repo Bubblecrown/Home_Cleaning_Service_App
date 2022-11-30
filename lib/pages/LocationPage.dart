@@ -4,10 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/MapLocationPage.dart';
 import 'package:home_cleaning_service_app/shared/Field.dart';
+import 'package:home_cleaning_service_app/shared/font.dart';
+import 'package:home_cleaning_service_app/shared/NavigationBar.dart';
+
 import 'package:sizer/sizer.dart';
 
 class LocationPage extends StatefulWidget {
@@ -146,7 +149,7 @@ class _LocationPageState extends State<LocationPage> {
         leading: BackButton(onPressed: (() {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return HomePage();
+            return NavigationBarBtn();
           }));
         })),
         backgroundColor: Colors.transparent,
@@ -154,7 +157,7 @@ class _LocationPageState extends State<LocationPage> {
       ),
       // end appbar
 
-      body: ListView(padding: EdgeInsets.zero, children: [
+      body: ListView(children: [
         Container(
           decoration: BoxDecoration(
               color: white,
@@ -171,7 +174,8 @@ class _LocationPageState extends State<LocationPage> {
                   // title
                   Text(
                     'Book a Service',
-                    style: TextStyle(fontSize: 24.sp),
+                    style: TextStyle(
+                        fontSize: 24.sp, fontFamily: TextCustom.desBold),
                   ),
                   // end title
                   SizedBox(height: 15.sp),

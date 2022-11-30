@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:home_cleaning_service_app/ColorScheme.dart';
-import 'package:home_cleaning_service_app/data/font.dart';
+import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
+import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/model/service.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
@@ -34,6 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.bottomCenter,
             child: Container(
               color: bgWhite,
-              height: 70.h,
+              height: double.infinity,
               width: double.infinity,
             ),
           ),
@@ -55,60 +57,56 @@ class _HomePageState extends State<HomePage> {
                     BorderRadius.only(bottomLeft: Radius.circular(100))),
           ),
           Positioned(
-            top: 5.h,
+            top: 10.h,
             left: 8.w,
             right: 8.w,
             child: Container(
               height: 20.h,
               width: 100.w,
-              child: ListView(
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "This summer",
-                              style: TextStyle(
-                                color: whiteSecondary,
-                                fontSize: 14.sp,
-                                fontFamily: TextCustom.subBold,
-                              ),
-                            ),
-                            Text(
-                              "Discounts",
-                              style: TextStyle(
-                                  color: white,
-                                  fontSize: 30.sp,
-                                  fontFamily: TextCustom.subBold),
-                            )
-                          ],
-                        ),
-                        GestureDetector(
-                          child: CircleAvatar(
-                            backgroundColor: bgBlue,
-                            child: Icon(
-                              Icons.logout_outlined,
-                              color: white,
-                            ),
+                        Text(
+                          "This summer",
+                          style: TextStyle(
+                            color: whiteSecondary,
+                            fontSize: 14.sp,
+                            fontFamily: TextCustom.subBold,
                           ),
-                          onTap: () {
-                            auth.signOut().then((value) => {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return WelcomePage();
-                                  }))
-                                });
-                          },
+                        ),
+                        Text(
+                          "Discounts",
+                          style: TextStyle(
+                              color: white,
+                              fontSize: 30.sp,
+                              fontFamily: TextCustom.subBold),
                         )
                       ],
                     ),
-                  )
-                ],
+                    GestureDetector(
+                      child: CircleAvatar(
+                        backgroundColor: bgBlue,
+                        child: Icon(
+                          Icons.logout_outlined,
+                          color: white,
+                        ),
+                      ),
+                      onTap: () {
+                        auth.signOut().then((value) => {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return WelcomePage();
+                              }))
+                            });
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -127,9 +125,9 @@ class _HomePageState extends State<HomePage> {
                   autoPlay: true,
                   enlargeCenterPage: false,
                   enableInfiniteScroll: true,
-                  viewportFraction: 0.7,
+                  viewportFraction: 0.75,
                   aspectRatio: 1.9,
-                  initialPage: 2,
+                  initialPage: 3,
                 ),
               ),
             ),
