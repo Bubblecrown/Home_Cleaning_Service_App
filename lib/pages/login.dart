@@ -26,12 +26,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   Users users = Users(
-      uid: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '');
+      uid: '', displayName: '', email: '', password: '', confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override

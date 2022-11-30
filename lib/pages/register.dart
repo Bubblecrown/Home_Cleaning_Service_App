@@ -27,18 +27,11 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
   Users users = Users(
-      uid: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '');
+      uid: '', displayName: '', email: '', password: '', confirmPassword: '');
 
-  Future storeUserAccount(
-      String firstName, String lastName, String email) async {
+  Future storeUserAccount(String displayName, String email) async {
     await FirebaseFirestore.instance.collection('user_accounts').add({
-      'first_name': firstName,
-      'last_name': lastName,
+      'username': displayName,
       'email': email,
     });
   }
@@ -60,7 +53,6 @@ class _RegisterPageState extends State<RegisterPage> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            
             extendBodyBehindAppBar: true,
             backgroundColor: primary,
             // resizeToAvoidBottomInset: false,
@@ -156,7 +148,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         // form
                         SizedBox(
-                          
                           child: Form(
                               key: formKey,
                               child: SingleChildScrollView(
@@ -164,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    // first name form
+                                    // username form
                                     TextFormField(
                                       keyboardType: TextInputType.name,
                                       validator: MultiValidator([
@@ -172,8 +163,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             errorText:
                                                 'You must enter your first name.')
                                       ]),
-                                      onSaved: (String? firstName) {
-                                        users.firstName = firstName!;
+                                      onSaved: (String? displayName) {
+                                        users.displayName = displayName!;
                                       },
                                       style: TextStyle(color: greyPrimary),
                                       decoration: const InputDecoration(
@@ -187,7 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   color: Colors.transparent),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(30))),
-                                          hintText: 'First name',
+                                          hintText: 'Username',
                                           prefixIcon: Icon(
                                             Icons.person_outlined,
                                             color: Color.fromRGBO(
@@ -197,44 +188,42 @@ class _RegisterPageState extends State<RegisterPage> {
                                               192, 192, 192, 0.20),
                                           filled: true),
                                     ),
-                                    // end first name form
+                                    // end username form
 
-                                    SizedBox(height: 15.sp),
-
-                                    // last name form
-                                    TextFormField(
-                                      keyboardType: TextInputType.name,
-                                      validator: MultiValidator([
-                                        RequiredValidator(
-                                            errorText:
-                                                'You must enter your Last name.')
-                                      ]),
-                                      onSaved: (String? lastName) {
-                                        users.lastName = lastName!;
-                                      },
-                                      style: TextStyle(color: greyPrimary),
-                                      decoration: const InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.transparent),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30))),
-                                          hintText: 'Last name',
-                                          prefixIcon: Icon(
-                                            Icons.person_outline,
-                                            color: Color.fromRGBO(
-                                                123, 123, 123, 1),
-                                          ),
-                                          fillColor: Color.fromRGBO(
-                                              192, 192, 192, 0.20),
-                                          filled: true),
-                                    ),
-                                    // end last name form
+                                    // // last name form
+                                    // TextFormField(
+                                    //   keyboardType: TextInputType.name,
+                                    //   validator: MultiValidator([
+                                    //     RequiredValidator(
+                                    //         errorText:
+                                    //             'You must enter your Last name.')
+                                    //   ]),
+                                    //   onSaved: (String? lastName) {
+                                    //     users.lastName = lastName!;
+                                    //   },
+                                    //   style: TextStyle(color: greyPrimary),
+                                    //   decoration: const InputDecoration(
+                                    //       enabledBorder: OutlineInputBorder(
+                                    //           borderSide: BorderSide(
+                                    //               color: Colors.transparent),
+                                    //           borderRadius: BorderRadius.all(
+                                    //               Radius.circular(30))),
+                                    //       focusedBorder: OutlineInputBorder(
+                                    //           borderSide: BorderSide(
+                                    //               color: Colors.transparent),
+                                    //           borderRadius: BorderRadius.all(
+                                    //               Radius.circular(30))),
+                                    //       hintText: 'Last name',
+                                    //       prefixIcon: Icon(
+                                    //         Icons.person_outline,
+                                    //         color: Color.fromRGBO(
+                                    //             123, 123, 123, 1),
+                                    //       ),
+                                    //       fillColor: Color.fromRGBO(
+                                    //           192, 192, 192, 0.20),
+                                    //       filled: true),
+                                    // ),
+                                    // // end last name form
 
                                     SizedBox(height: 15.sp),
 
@@ -378,14 +367,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Fluttertoast.showToast(
                                             msg: '${notify}',
                                             gravity: ToastGravity.TOP);
+
                                         await FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
-                                                email: users.email,
-                                                password: users.password)
+                                              email: users.email,
+                                              password: users.password,
+                                            )
                                             .then((value) => {
                                                   storeUserAccount(
-                                                    users.firstName,
-                                                    users.lastName,
+                                                    users.displayName,
                                                     users.email,
                                                   ),
                                                   formKey.currentState?.reset(),
@@ -400,6 +390,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                                     return WelcomePage();
                                                   }))
                                                 });
+                                        await FirebaseAuth.instance.currentUser
+                                            ?.updateDisplayName(
+                                                users.displayName);
                                       } else {
                                         Fluttertoast.showToast(
                                             msg:

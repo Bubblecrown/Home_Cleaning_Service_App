@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -9,6 +10,7 @@ import 'package:geocoder/geocoder.dart' as geo;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:sizer/sizer.dart';
 
 class MapLocationPage extends StatefulWidget {
@@ -23,6 +25,7 @@ class _MyWidgetState extends State<MapLocationPage> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Position? position;
   String? addressLocation;
+  final auth = FirebaseAuth.instance;
 
   void getMarkers(double lat, double long) {
     MarkerId markerId = MarkerId(lat.toString() + long.toString());
@@ -67,7 +70,10 @@ class _MyWidgetState extends State<MapLocationPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
         leading: BackButton(onPressed: (() {
-          Navigator.of(context).pop();
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return LocationPage();
+          }));
         })),
         backgroundColor: primary,
         elevation: 0,
@@ -86,7 +92,10 @@ class _MyWidgetState extends State<MapLocationPage> {
                   .findAddressesFromCoordinates(coordinated);
               var firstAddress = address.first;
               getMarkers(tap.latitude, tap.longitude);
-              await FirebaseFirestore.instance.collection('booking_list').add({
+              await FirebaseFirestore.instance
+                  .collection('booking_list')
+                  .doc(auth.currentUser?.uid)
+                  .update({
                 'latitude': tap.latitude,
                 'longitude': tap.longitude,
                 'Address': firstAddress.addressLine,

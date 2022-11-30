@@ -39,7 +39,7 @@ class _NavigationBarBtnState extends State<NavigationBarBtn> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.table_chart_outlined),
-            label: 'Booking',
+            label: 'Bookings',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

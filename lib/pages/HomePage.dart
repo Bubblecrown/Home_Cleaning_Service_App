@@ -13,6 +13,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
 import 'package:home_cleaning_service_app/data/font.dart';
 import 'package:home_cleaning_service_app/model/service.dart';
+import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
 import 'package:home_cleaning_service_app/pages/Reserve.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
@@ -87,12 +88,22 @@ class _HomePageState extends State<HomePage> {
                             )
                           ],
                         ),
-                        CircleAvatar(
-                          backgroundColor: bgBlue,
-                          child: Icon(
-                            Icons.logout_outlined,
-                            color: white,
+                        GestureDetector(
+                          child: CircleAvatar(
+                            backgroundColor: bgBlue,
+                            child: Icon(
+                              Icons.logout_outlined,
+                              color: white,
+                            ),
                           ),
+                          onTap: () {
+                            auth.signOut().then((value) => {
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return WelcomePage();
+                                  }))
+                                });
+                          },
                         )
                       ],
                     ),
@@ -152,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: (() {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return ReservePage();
+                          return LocationPage();
                         }));
                       }),
                     ),

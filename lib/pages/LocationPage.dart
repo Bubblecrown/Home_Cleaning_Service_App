@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/ColorScheme.dart';
+import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/MapLocationPage.dart';
 import 'package:home_cleaning_service_app/shared/Field.dart';
 import 'package:sizer/sizer.dart';
@@ -143,7 +144,10 @@ class _LocationPageState extends State<LocationPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: greyPrimary),
         leading: BackButton(onPressed: (() {
-          Navigator.pop(context);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return HomePage();
+          }));
         })),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -200,8 +204,34 @@ class _LocationPageState extends State<LocationPage> {
                   // ),
                   // SizedBox(height: 15.sp),
                   // // end place name form
+                  // Map label
+                  Text('Location (optional)'),
+                  SizedBox(height: 10.sp),
+                  // end Map label
 
+                  // Map form
+                  SizedBox(
+                      width: double.infinity,
+                      height: 7.h,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40))),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromRGBO(242, 242, 242, 1))),
+                          onPressed: () async {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return MapLocationPage();
+                            }));
+                          },
+                          child: Text('Add your location',
+                              style: TextStyle(color: greyPrimary)))),
                   SizedBox(height: 15.sp),
+                  // end map form
+
                   // label
                   Text('Place Type'),
                   SizedBox(height: 10.sp),
@@ -400,34 +430,6 @@ class _LocationPageState extends State<LocationPage> {
                   SizedBox(height: 15.sp),
                   // end phonenumber form
 
-                  // Map label
-                  Text('Location (optional)'),
-                  SizedBox(height: 10.sp),
-                  // end Map label
-
-                  // Map form
-                  SizedBox(
-                      width: double.infinity,
-                      height: 7.h,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40))),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromRGBO(242, 242, 242, 1))),
-                          onPressed: () async {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return MapLocationPage();
-                            }));
-                          },
-                          child: Text('Add your location',
-                              style: TextStyle(color: greyPrimary)))),
-                  SizedBox(height: 15.sp),
-                  // end map form
-
                   // label
                   Text('Cleaning Duration'),
                   SizedBox(height: 10.sp),
@@ -600,6 +602,11 @@ class _LocationPageState extends State<LocationPage> {
                                   dateTime,
                                   additional,
                                   total);
+                              formKey.currentState?.reset();
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return HomePage();
+                              }));
                             }
 
                             //   formKey.currentState?.reset();
