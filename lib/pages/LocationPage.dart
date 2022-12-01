@@ -69,7 +69,10 @@ class _LocationPageState extends State<LocationPage> {
       DateTime dateTime,
       String additional,
       int total) async {
-    await FirebaseFirestore.instance.collection('booking_list').add({
+    await FirebaseFirestore.instance
+        .collection('booking_list')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
       'place_type': place_type_selected,
       'duration_selected': duration_selected,
       'address': address,

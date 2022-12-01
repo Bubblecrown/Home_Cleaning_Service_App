@@ -4,7 +4,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
-import 'package:home_cleaning_service_app/pages/Reserve.dart';
+import 'package:home_cleaning_service_app/pages/BookingsList.dart';
+import 'package:home_cleaning_service_app/pages/ReadBookings.dart';
 
 class NavigationBarBtn extends StatefulWidget {
   const NavigationBarBtn({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _NavigationBarBtnState extends State<NavigationBarBtn> {
   int _selectedIndex = 0;
   final List<Widget> _pages = <Widget>[
     const HomePage(),
-    const ReservePage(),
+    const ReadBookings(),
     const ProfilePage(),
   ];
 

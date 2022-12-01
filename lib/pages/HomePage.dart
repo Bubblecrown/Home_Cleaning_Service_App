@@ -15,7 +15,7 @@ import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/model/service.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
-import 'package:home_cleaning_service_app/pages/Reserve.dart';
+import 'package:home_cleaning_service_app/pages/BookingsList.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 

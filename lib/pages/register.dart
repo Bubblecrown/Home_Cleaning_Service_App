@@ -29,8 +29,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Users users = Users(
       uid: '', displayName: '', email: '', password: '', confirmPassword: '');
 
-  Future storeUserAccount(String displayName, String email) async {
-    await FirebaseFirestore.instance.collection('user_accounts').add({
+  Future storeUserAccount(
+      String displayName, String email, String userID) async {
+    return await FirebaseFirestore.instance
+        .collection('user_accounts')
+        .doc(userID)
+        .set({
       'username': displayName,
       'email': email,
     });
@@ -375,9 +379,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                             )
                                             .then((value) => {
                                                   storeUserAccount(
-                                                    users.displayName,
-                                                    users.email,
-                                                  ),
+                                                      users.displayName,
+                                                      users.email,
+                                                      FirebaseAuth.instance
+                                                          .currentUser!.uid),
                                                   formKey.currentState?.reset(),
                                                   Fluttertoast.showToast(
                                                       msg: RegisterData.success,
@@ -390,6 +395,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                     return WelcomePage();
                                                   }))
                                                 });
+
                                         await FirebaseAuth.instance.currentUser
                                             ?.updateDisplayName(
                                                 users.displayName);
