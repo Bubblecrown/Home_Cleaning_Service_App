@@ -612,7 +612,7 @@ class _LocationPageState extends State<LocationPage> {
                               formKey.currentState?.reset();
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
-                                return HomePage();
+                                return NavigationBarBtn();
                               }));
                             }
 
