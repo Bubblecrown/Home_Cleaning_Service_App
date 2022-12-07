@@ -61,8 +61,8 @@ class _LocationPageState extends State<LocationPage> {
   void storeBooking(
       String place_type_selected,
       duration_selected,
-      String address,
-      String district,
+      // String address,
+      // String district,
       String province_selected,
       String addressDetail,
       String phonenumber,
@@ -72,11 +72,11 @@ class _LocationPageState extends State<LocationPage> {
     await FirebaseFirestore.instance
         .collection('booking_list')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
+        .update({
       'place_type': place_type_selected,
       'duration_selected': duration_selected,
-      'address': address,
-      'district': district,
+      // 'address': address,
+      // 'district': district,
       'province': province_selected,
       'address_detail': addressDetail,
       'phone_number': phonenumber,
@@ -269,73 +269,73 @@ class _LocationPageState extends State<LocationPage> {
 
                   SizedBox(height: 15.sp),
 
-                  // label
-                  Text('Address'),
-                  SizedBox(height: 10.sp),
-                  // end label
+                  // // label
+                  // Text('Address'),
+                  // SizedBox(height: 10.sp),
+                  // // end label
 
-                  // address form
-                  TextFormField(
-                    style: TextStyle(color: greyPrimary),
-                    validator: RequiredValidator(
-                        errorText: 'Please enter your address.'),
-                    onChanged: (val) => setState(() => address = val),
-                    onSaved: (String? address) {
-                      address = address!;
-                    },
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        hintText: 'Home No., Building, Village, Street',
-                        prefixIcon: Icon(
-                          Icons.home_outlined,
-                          color: Color.fromRGBO(123, 123, 123, 1),
-                        ),
-                        fillColor: Color.fromRGBO(242, 242, 242, 1),
-                        filled: true),
-                  ),
-                  SizedBox(height: 15.sp),
-                  // end address form
+                  // // address form
+                  // TextFormField(
+                  //   style: TextStyle(color: greyPrimary),
+                  //   validator: RequiredValidator(
+                  //       errorText: 'Please enter your address.'),
+                  //   onChanged: (val) => setState(() => address = val),
+                  //   onSaved: (String? address) {
+                  //     address = address!;
+                  //   },
+                  //   decoration: InputDecoration(
+                  //       enabledBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(30))),
+                  //       focusedBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(30))),
+                  //       hintText: 'Home No., Building, Village, Street',
+                  //       prefixIcon: Icon(
+                  //         Icons.home_outlined,
+                  //         color: Color.fromRGBO(123, 123, 123, 1),
+                  //       ),
+                  //       fillColor: Color.fromRGBO(242, 242, 242, 1),
+                  //       filled: true),
+                  // ),
+                  // SizedBox(height: 15.sp),
+                  // // end address form
 
-                  // label
-                  Text('District'),
-                  SizedBox(height: 10.sp),
-                  // end label
+                  // // label
+                  // Text('District'),
+                  // SizedBox(height: 10.sp),
+                  // // end label
 
-                  // district form
-                  TextFormField(
-                    style: TextStyle(color: greyPrimary),
-                    validator: RequiredValidator(
-                        errorText: 'Please enter your district.'),
-                    onChanged: (val) => setState(() => district = val),
-                    onSaved: (String? district) {
-                      district = district!;
-                    },
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        hintText: 'Enter your district',
-                        prefixIcon: Icon(
-                          Icons.home_outlined,
-                          color: Color.fromRGBO(123, 123, 123, 1),
-                        ),
-                        fillColor: Color.fromRGBO(242, 242, 242, 1),
-                        filled: true),
-                  ),
-                  SizedBox(height: 15.sp),
-                  // end district form
+                  // // district form
+                  // TextFormField(
+                  //   style: TextStyle(color: greyPrimary),
+                  //   validator: RequiredValidator(
+                  //       errorText: 'Please enter your district.'),
+                  //   onChanged: (val) => setState(() => district = val),
+                  //   onSaved: (String? district) {
+                  //     district = district!;
+                  //   },
+                  //   decoration: InputDecoration(
+                  //       enabledBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(30))),
+                  //       focusedBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(30))),
+                  //       hintText: 'Enter your district',
+                  //       prefixIcon: Icon(
+                  //         Icons.home_outlined,
+                  //         color: Color.fromRGBO(123, 123, 123, 1),
+                  //       ),
+                  //       fillColor: Color.fromRGBO(242, 242, 242, 1),
+                  //       filled: true),
+                  // ),
+                  // SizedBox(height: 15.sp),
+                  // // end district form
 
                   // province form
                   // label
@@ -601,8 +601,8 @@ class _LocationPageState extends State<LocationPage> {
                               storeBooking(
                                   place_type_selected,
                                   duration_selected,
-                                  address,
-                                  district,
+                                  // address,
+                                  // district,
                                   province_selected,
                                   addressDetail,
                                   phonenumber,
@@ -615,9 +615,6 @@ class _LocationPageState extends State<LocationPage> {
                                 return NavigationBarBtn();
                               }));
                             }
-
-                            //   formKey.currentState?.reset();
-                            // }
                           },
                           child: Text('CONFIRM'))),
                   // end submit button

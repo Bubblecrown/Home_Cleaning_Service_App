@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/data/reserveData.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
@@ -19,45 +20,44 @@ class BookingsList extends StatefulWidget {
 }
 
 class _BookingsListState extends State<BookingsList> {
-  DateTime? booking_time;
-  String? place_type;
-  String? duration_selected;
-  int? total_price;
-  String? address;
+  // DateTime? booking_time;
+  // String? place_type;
+  // String? duration_selected;
+  // int? total_price;
+  // String? address;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future getData() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection("booking_list")
-          .doc(firebaseUser)
-          .get()
-          .then((ds) {
-        setState(() {
-          booking_time = ds.data()?["booking_time"];
-          place_type = ds.data()?["place_type"];
-          duration_selected = ds.data()?["duration_selected"];
-          total_price = ds.data()?["total_price"];
-          address = ds.data()?["address"];
-        });
+  // Future getData() async {
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
+  //   if (firebaseUser != null) {
+  //     await FirebaseFirestore.instance
+  //         .collection("booking_list")
+  //         .doc(firebaseUser)
+  //         .get()
+  //         .then((ds) {
+  //       setState(() {
+  //         booking_time = ds.data()?["booking_time"] ?? '';
+  //         place_type = ds.data()?["place_type"];
+  //         duration_selected = ds.data()?["duration_selected"] ?? '';
+  //         total_price = ds.data()?["total_price"] ?? '';
+  //         address = ds.data()?["address"] ?? '';
+  //       });
 
-        print(booking_time);
-      }).catchError((e) {
-        print(e);
-      });
-    }
-  }
+  //       print(booking_time);
+  //     }).catchError((e) {
+  //       print(e);
+  //     });
+  //   }
+  // }
 
-  Future<void> cancel(String jobId) async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
-    return FirebaseFirestore.instance
-        .collection('jobs')
-        .doc(firebaseUser)
-        .delete();
-  }
-
+  // Future<void> cancel(String jobId) async {
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
+  //   return FirebaseFirestore.instance
+  //       .collection('jobs')
+  //       .doc(firebaseUser)
+  //       .delete();
+  // }
   @override
   Widget build(BuildContext context) {
     CollectionReference booking =
@@ -66,135 +66,186 @@ class _BookingsListState extends State<BookingsList> {
     return FutureBuilder<Object>(
         future: booking.doc(FirebaseAuth.instance.currentUser?.uid).get(),
         builder: (context, AsyncSnapshot snapshot) {
-          final Timestamp time = snapshot.data!['booking_time'] as Timestamp;
-          final DateTime dateTime = time.toDate();
-          final dateString =
-              DateFormat("yyyy-MM-dd' | 'HH:mm").format(dateTime);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
-          return Scaffold(
-            backgroundColor: bgBlueWhite,
-            body: ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
-                      ),
-                      color: white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: 'CLEANING',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.subBold,
-                                        fontSize: 16.sp,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                      child: Icon(Icons.date_range_outlined)),
-                                  TextSpan(
-                                      text: ' ${dateString}',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.desRegular,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                      child: Icon(Icons.apartment_outlined)),
-                                  TextSpan(
-                                      text:
-                                          ' ${snapshot.data!['place_type'] ?? 0}',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.desRegular,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(child: Icon(Icons.timer_outlined)),
-                                  TextSpan(
-                                      text:
-                                          ' ${snapshot.data!['duration_selected'] ?? 0}',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.desRegular,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                      child: Icon(Icons.price_change_outlined)),
-                                  TextSpan(
-                                      text:
-                                          ' ${snapshot.data!['total_price'] ?? 0}',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.desRegular,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(child: Icon(Icons.home_outlined)),
-                                  TextSpan(
-                                      text:
-                                          ' ${snapshot.data!['address'] ?? 0}',
-                                      style: TextStyle(
-                                        fontFamily: TextCustom.desRegular,
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
+
+          if (snapshot.hasData) {
+            final Timestamp time = snapshot.data!['booking_time'] as Timestamp;
+            final DateTime dateTime = time.toDate();
+            final dateSet = DateFormat("yyyy-MM-dd' | 'HH:mm").format(dateTime);
+
+            return Scaffold(
+              backgroundColor: bgBlueWhite,
+              body: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                        constraints: BoxConstraints(
+                          maxHeight: double.infinity,
                         ),
-                      )),
-                ),
-              ],
-            ),
-          );
+                        color: white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text: 'CLEANING',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.subBold,
+                                          fontSize: 16.sp,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                        child: Icon(Icons.date_range_outlined)),
+                                    TextSpan(
+                                        text: ' ${dateSet}',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.desRegular,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                        child: Icon(Icons.apartment_outlined)),
+                                    TextSpan(
+                                        text:
+                                            ' ${snapshot.data!['place_type'] ?? 0}',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.desRegular,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                        child: Icon(Icons.timer_outlined)),
+                                    TextSpan(
+                                        text:
+                                            ' ${snapshot.data!['duration_selected'] ?? 0}',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.desRegular,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                        child:
+                                            Icon(Icons.price_change_outlined)),
+                                    TextSpan(
+                                        text:
+                                            ' ${snapshot.data!['total_price'] ?? 0}',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.desRegular,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                        child: Icon(Icons.home_outlined)),
+                                    TextSpan(
+                                        text:
+                                            ' ${snapshot.data!['Address'] ?? 0} ',
+                                        style: TextStyle(
+                                          fontFamily: TextCustom.desRegular,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.calendar_month_outlined,
+                    color: greyPrimary,
+                    size: 30.w,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Text(
+                    "No Booking, yet",
+                    style: TextStyle(
+                        fontFamily: TextCustom.desRegular, fontSize: 16.sp),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  SizedBox(
+                      width: 45.w,
+                      height: 6.h,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40))),
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(primary)),
+                          onPressed: () async {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return LocationPage();
+                            }));
+                          },
+                          child: Text(
+                            'Book a service',
+                            style: TextStyle(
+                                fontFamily: TextCustom.desRegular,
+                                fontSize: 14.sp),
+                          ))),
+                ],
+              ),
+            );
+          }
         });
   }
 }
-
-
 
 // FutureBuilder<Object>(
 //         future: booking.doc(FirebaseAuth.instance.currentUser?.uid).get(),
@@ -204,8 +255,8 @@ class _BookingsListState extends State<BookingsList> {
 //           }
 //           return Scaffold(
 //             backgroundColor: bgBlueWhite,
-//             body: 
-            
+//             body:
+
 //             ListView(
 //               children: [
 //                 Padding(
@@ -220,28 +271,27 @@ class _BookingsListState extends State<BookingsList> {
 //           );
 //         });
 
-
 // Scaffold(
-          //   body: Padding(
-          //     padding: const EdgeInsets.all(20.0),
-          //     child: ListView(
-          //       children: snapshot.data?.docs.map((doc) {
-          //             // your widget here(use doc data)
-          //             return Padding(
-          //               padding: const EdgeInsets.all(8.0),
-          //               child: Container(
-          //                 height: 20.h,
-          //                 color: grey,
-          //                 child: Column(
-          //                   children: [Text("${doc.data()}")],
-          //                 ),
-          //               ),
-          //             );
-          //           }).toList() ??
-          //           [],
-          //     ),
-          //   ),
-          // );
+//   body: Padding(
+//     padding: const EdgeInsets.all(20.0),
+//     child: ListView(
+//       children: snapshot.data?.docs.map((doc) {
+//             // your widget here(use doc data)
+//             return Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Container(
+//                 height: 20.h,
+//                 color: grey,
+//                 child: Column(
+//                   children: [Text("${doc.data()}")],
+//                 ),
+//               ),
+//             );
+//           }).toList() ??
+//           [],
+//     ),
+//   ),
+// );
 
 // Text("Full Name: ${data['username']} ${data['email']}");
 

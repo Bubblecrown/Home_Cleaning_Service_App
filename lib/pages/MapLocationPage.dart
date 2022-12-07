@@ -94,8 +94,8 @@ class _MyWidgetState extends State<MapLocationPage> {
               getMarkers(tap.latitude, tap.longitude);
               await FirebaseFirestore.instance
                   .collection('booking_list')
-                  .doc(auth.currentUser?.uid)
-                  .update({
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .set({
                 'latitude': tap.latitude,
                 'longitude': tap.longitude,
                 'Address': firstAddress.addressLine,
