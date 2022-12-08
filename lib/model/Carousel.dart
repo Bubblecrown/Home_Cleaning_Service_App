@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 
 final dataList = [
   "https://firebasestorage.googleapis.com/v0/b/home-cleaning-service-app.appspot.com/o/image_1.PNG?alt=media&token=f96c4d4b-e6e3-4fbe-abe1-d811b4c19867",

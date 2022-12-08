@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -14,16 +11,12 @@ import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/model/service.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
-import 'package:home_cleaning_service_app/pages/ProfilePage.dart';
-import 'package:home_cleaning_service_app/pages/BookingsList.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 
 import '../model/Carousel.dart';
-import '../model/Users.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

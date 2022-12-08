@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_cleaning_service_app/pages/LocationPage.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
-import 'package:home_cleaning_service_app/data/reserveData.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';

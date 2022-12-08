@@ -11,11 +11,8 @@ import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/data/registerData.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
-import 'package:home_cleaning_service_app/services/UserAccount.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
-
-import '../services/database.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -26,8 +23,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(
-      uid: '', displayName: '', email: '', password: '', confirmPassword: '');
+  Users users =
+      Users(displayName: '', email: '', password: '', confirmPassword: '');
 
   Future storeUserAccount(
       String displayName, String email, String userID) async {
@@ -162,11 +159,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     // username form
                                     TextFormField(
                                       keyboardType: TextInputType.name,
-                                      validator: MultiValidator([
-                                        RequiredValidator(
-                                            errorText:
-                                                'You must enter your first name.')
-                                      ]),
+                                      validator: RequiredValidator(
+                                          errorText:
+                                              'You must enter your first name.'),
                                       onSaved: (String? displayName) {
                                         users.displayName = displayName!;
                                       },
@@ -193,41 +188,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                           filled: true),
                                     ),
                                     // end username form
-
-                                    // // last name form
-                                    // TextFormField(
-                                    //   keyboardType: TextInputType.name,
-                                    //   validator: MultiValidator([
-                                    //     RequiredValidator(
-                                    //         errorText:
-                                    //             'You must enter your Last name.')
-                                    //   ]),
-                                    //   onSaved: (String? lastName) {
-                                    //     users.lastName = lastName!;
-                                    //   },
-                                    //   style: TextStyle(color: greyPrimary),
-                                    //   decoration: const InputDecoration(
-                                    //       enabledBorder: OutlineInputBorder(
-                                    //           borderSide: BorderSide(
-                                    //               color: Colors.transparent),
-                                    //           borderRadius: BorderRadius.all(
-                                    //               Radius.circular(30))),
-                                    //       focusedBorder: OutlineInputBorder(
-                                    //           borderSide: BorderSide(
-                                    //               color: Colors.transparent),
-                                    //           borderRadius: BorderRadius.all(
-                                    //               Radius.circular(30))),
-                                    //       hintText: 'Last name',
-                                    //       prefixIcon: Icon(
-                                    //         Icons.person_outline,
-                                    //         color: Color.fromRGBO(
-                                    //             123, 123, 123, 1),
-                                    //       ),
-                                    //       fillColor: Color.fromRGBO(
-                                    //           192, 192, 192, 0.20),
-                                    //       filled: true),
-                                    // ),
-                                    // // end last name form
 
                                     SizedBox(height: 15.sp),
 
@@ -268,6 +228,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           filled: true),
                                     ),
                                     SizedBox(height: 15.sp),
+                                    // end email form
 
                                     // password form
                                     TextFormField(
@@ -301,6 +262,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
 
                                     SizedBox(height: 15.sp),
+                                    // end password form
 
                                     // Confirm password
                                     TextFormField(
@@ -333,6 +295,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                               192, 192, 192, 0.20),
                                           filled: true),
                                     )
+                                    // end Confirm password
+
                                   ],
                                 ),
                               )),
@@ -340,7 +304,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         SizedBox(height: 5.h),
 
-                        // login button
+                        // register button
                         SizedBox(
                             width: 50.w,
                             height: 7.h,
@@ -424,6 +388,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 },
                                 child: Text(RegisterData.btnSignup))),
+                                // end register button
                       ],
                     ),
                   ),

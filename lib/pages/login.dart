@@ -8,7 +8,6 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/shared/NavigationBar.dart';
 import 'package:home_cleaning_service_app/data/loginData.dart';
-import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sizer/sizer.dart';
@@ -25,8 +24,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
-  Users users = Users(
-      uid: '', displayName: '', email: '', password: '', confirmPassword: '');
+  Users users =
+      Users(displayName: '', email: '', password: '', confirmPassword: '');
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override

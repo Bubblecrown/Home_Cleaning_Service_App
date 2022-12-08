@@ -2,11 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
-import 'package:home_cleaning_service_app/model/Users.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:sizer/sizer.dart';
 
