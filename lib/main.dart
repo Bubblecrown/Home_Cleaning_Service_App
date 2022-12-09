@@ -2,7 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:home_cleaning_service_app/pages/LocationPage.dart';
+import 'package:home_cleaning_service_app/pages/Booking.dart';
 import 'package:home_cleaning_service_app/pages/SplashScreen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:home_cleaning_service_app/wrapper.dart';

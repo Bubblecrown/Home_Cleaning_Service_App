@@ -16,59 +16,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String? _uid;
-  String? email;
-  String? firstName;
-  String? lastName;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  Future getData() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance
-          .collection("user_accounts")
-          .doc(firebaseUser)
-          .get()
-          .then((ds) {
-        setState(() {
-          firstName = ds.data()?["first_name"];
-        });
-
-        print(firstName);
-        print(FirebaseAuth.instance.currentUser?.uid);
-      }).catchError((e) {
-        print(e);
-      });
-    }
-  }
-
-  Future fetchData() async {
-    User? users = auth.currentUser;
-    _uid = users?.uid;
-    final DocumentSnapshot userDocs = await FirebaseFirestore.instance
-        .collection('user_accounts')
-        .doc(auth.currentUser?.uid)
-        .get();
-    setState(() {
-      firstName = userDocs.get('first_name');
-    });
-
-    print(firstName);
-  }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   getData();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: getData(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState != ConnectionState.done)
-    //       return Text("Loading data...Please wait");
     return Scaffold(
         body: Stack(
       children: [
@@ -126,8 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           borderRadius:
                                               BorderRadius.circular(40))),
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          logout)),
+                                      MaterialStateProperty.all<Color>(logout)),
                               onPressed: () async {
                                 auth.signOut().then((value) => {
                                       Navigator.pushReplacement(context,
@@ -162,15 +112,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         )
       ],
-    )
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text("Name : ${auth.currentUser?.displayName}"),
-        //   ],
-        // ),
-        );
-    //   },
-    // );
+    ));
   }
 }

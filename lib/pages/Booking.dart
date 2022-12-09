@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
-import 'package:home_cleaning_service_app/pages/HomePage.dart';
 import 'package:home_cleaning_service_app/pages/MapLocationPage.dart';
 import 'package:home_cleaning_service_app/shared/Field.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
@@ -13,14 +12,14 @@ import 'package:home_cleaning_service_app/shared/NavigationBar.dart';
 
 import 'package:sizer/sizer.dart';
 
-class LocationPage extends StatefulWidget {
-  const LocationPage({Key? key}) : super(key: key);
+class BookingPage extends StatefulWidget {
+  const BookingPage({Key? key}) : super(key: key);
 
   @override
-  State<LocationPage> createState() => _LocationPageState();
+  State<BookingPage> createState() => _LocaBookingState();
 }
 
-class _LocationPageState extends State<LocationPage> {
+class _LocaBookingState extends State<BookingPage> {
   final formKey = GlobalKey<FormState>();
 
   final List<String> place_type = [
@@ -60,9 +59,7 @@ class _LocationPageState extends State<LocationPage> {
   DateTime dateTime = DateTime.now();
   void storeBooking(
       String place_type_selected,
-      duration_selected,
-      // String address,
-      // String district,
+      String duration_selected,
       String province_selected,
       String addressDetail,
       String phonenumber,
@@ -75,8 +72,6 @@ class _LocationPageState extends State<LocationPage> {
         .update({
       'place_type': place_type_selected,
       'duration_selected': duration_selected,
-      // 'address': address,
-      // 'district': district,
       'province': province_selected,
       'address_detail': addressDetail,
       'phone_number': phonenumber,
@@ -183,34 +178,6 @@ class _LocationPageState extends State<LocationPage> {
                   // end title
                   SizedBox(height: 15.sp),
 
-                  // // label
-                  // Text('Place Name'),
-                  // SizedBox(height: 10.sp),
-                  // // end label
-
-                  // // place name form
-                  // TextFormField(
-                  //   style: TextStyle(color: greyPrimary),
-                  //   validator: (val) =>
-                  //       val!.isEmpty ? 'Please enter a Place Name' : null,
-                  //   onChanged: (val) => setState(() => place_name = val),
-                  //   decoration: InputDecoration(
-                  //       enabledBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius: BorderRadius.all(Radius.circular(30))),
-                  //       focusedBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius: BorderRadius.all(Radius.circular(30))),
-                  //       hintText: 'e.g. My home / My condo / Office',
-                  //       prefixIcon: Icon(
-                  //         Icons.home_outlined,
-                  //         color: Color.fromRGBO(123, 123, 123, 1),
-                  //       ),
-                  //       fillColor: Color.fromRGBO(192, 192, 192, 0.20),
-                  //       filled: true),
-                  // ),
-                  // SizedBox(height: 15.sp),
-                  // // end place name form
                   // Map label
                   Text('Location (optional)'),
                   SizedBox(height: 10.sp),
@@ -268,74 +235,6 @@ class _LocationPageState extends State<LocationPage> {
                   // end dropdown
 
                   SizedBox(height: 15.sp),
-
-                  // // label
-                  // Text('Address'),
-                  // SizedBox(height: 10.sp),
-                  // // end label
-
-                  // // address form
-                  // TextFormField(
-                  //   style: TextStyle(color: greyPrimary),
-                  //   validator: RequiredValidator(
-                  //       errorText: 'Please enter your address.'),
-                  //   onChanged: (val) => setState(() => address = val),
-                  //   onSaved: (String? address) {
-                  //     address = address!;
-                  //   },
-                  //   decoration: InputDecoration(
-                  //       enabledBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius:
-                  //               BorderRadius.all(Radius.circular(30))),
-                  //       focusedBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius:
-                  //               BorderRadius.all(Radius.circular(30))),
-                  //       hintText: 'Home No., Building, Village, Street',
-                  //       prefixIcon: Icon(
-                  //         Icons.home_outlined,
-                  //         color: Color.fromRGBO(123, 123, 123, 1),
-                  //       ),
-                  //       fillColor: Color.fromRGBO(242, 242, 242, 1),
-                  //       filled: true),
-                  // ),
-                  // SizedBox(height: 15.sp),
-                  // // end address form
-
-                  // // label
-                  // Text('District'),
-                  // SizedBox(height: 10.sp),
-                  // // end label
-
-                  // // district form
-                  // TextFormField(
-                  //   style: TextStyle(color: greyPrimary),
-                  //   validator: RequiredValidator(
-                  //       errorText: 'Please enter your district.'),
-                  //   onChanged: (val) => setState(() => district = val),
-                  //   onSaved: (String? district) {
-                  //     district = district!;
-                  //   },
-                  //   decoration: InputDecoration(
-                  //       enabledBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius:
-                  //               BorderRadius.all(Radius.circular(30))),
-                  //       focusedBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.transparent),
-                  //           borderRadius:
-                  //               BorderRadius.all(Radius.circular(30))),
-                  //       hintText: 'Enter your district',
-                  //       prefixIcon: Icon(
-                  //         Icons.home_outlined,
-                  //         color: Color.fromRGBO(123, 123, 123, 1),
-                  //       ),
-                  //       fillColor: Color.fromRGBO(242, 242, 242, 1),
-                  //       filled: true),
-                  // ),
-                  // SizedBox(height: 15.sp),
-                  // // end district form
 
                   // province form
                   // label
@@ -594,15 +493,10 @@ class _LocationPageState extends State<LocationPage> {
                                 province_selected, duration_selected);
                             print(total);
 
-                            // if (formKey.currentState!.validate()) {
-                            //   formKey.currentState?.save();
-                            // ignore: unrelated_type_equality_checks
                             if (formKey.currentState!.validate()) {
                               storeBooking(
                                   place_type_selected,
                                   duration_selected,
-                                  // address,
-                                  // district,
                                   province_selected,
                                   addressDetail,
                                   phonenumber,

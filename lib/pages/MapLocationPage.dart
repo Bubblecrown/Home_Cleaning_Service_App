@@ -7,7 +7,7 @@ import 'package:geocoder/geocoder.dart' as geo;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
-import 'package:home_cleaning_service_app/pages/LocationPage.dart';
+import 'package:home_cleaning_service_app/pages/Booking.dart';
 import 'package:sizer/sizer.dart';
 
 class MapLocationPage extends StatefulWidget {
@@ -36,52 +36,34 @@ class _MyWidgetState extends State<MapLocationPage> {
     });
   }
 
-  Future getCurrentLocation() async {
-    Position currentLocation =
-        await GeolocatorPlatform.instance.getCurrentPosition();
-    setState(() {
-      position = currentLocation;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCurrentLocation();
-  }
-
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: getCurrentLocation(),
-    //   builder: (context, AsyncSnapshot snapshot) {
-    //     if (snapshot.data == null) {
-    //       return Center(child: CircularProgressIndicator());
-    //     }
-
-    //   },
-    // );
     return Scaffold(
-      // // appbar
+      // appbar
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
         leading: BackButton(onPressed: (() {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return LocationPage();
+            return BookingPage();
           }));
         })),
         backgroundColor: primary,
         elevation: 0,
       ),
-      // // end appbar
+      // end appbar
 
       body: Container(
         child: SizedBox(
           width: 100.w,
           height: 100.h,
           child: GoogleMap(
+            mapType: MapType.hybrid,
+            compassEnabled: true,
+            trafficEnabled: true,
+            myLocationEnabled: true,
+            zoomControlsEnabled: true,
+            
             onTap: ((tap) async {
               final coordinated =
                   new geo.Coordinates(tap.latitude, tap.longitude);
@@ -101,11 +83,6 @@ class _MyWidgetState extends State<MapLocationPage> {
                 addressLocation = firstAddress.addressLine;
               });
             }),
-            mapType: MapType.hybrid,
-            compassEnabled: true,
-            trafficEnabled: true,
-            myLocationEnabled: true,
-            zoomControlsEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               setState(() {
                 googleMapController = controller;
@@ -118,13 +95,7 @@ class _MyWidgetState extends State<MapLocationPage> {
             markers: Set<Marker>.of(markers.values),
           ),
         ),
-        // Text('address:${addressLocation}')
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

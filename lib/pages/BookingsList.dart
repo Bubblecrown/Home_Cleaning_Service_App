@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_cleaning_service_app/pages/LocationPage.dart';
+import 'package:home_cleaning_service_app/pages/Booking.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:intl/intl.dart';
@@ -19,44 +19,8 @@ class BookingsList extends StatefulWidget {
 }
 
 class _BookingsListState extends State<BookingsList> {
-  // DateTime? booking_time;
-  // String? place_type;
-  // String? duration_selected;
-  // int? total_price;
-  // String? address;
-
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  // Future getData() async {
-  //   final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
-  //   if (firebaseUser != null) {
-  //     await FirebaseFirestore.instance
-  //         .collection("booking_list")
-  //         .doc(firebaseUser)
-  //         .get()
-  //         .then((ds) {
-  //       setState(() {
-  //         booking_time = ds.data()?["booking_time"] ?? '';
-  //         place_type = ds.data()?["place_type"];
-  //         duration_selected = ds.data()?["duration_selected"] ?? '';
-  //         total_price = ds.data()?["total_price"] ?? '';
-  //         address = ds.data()?["address"] ?? '';
-  //       });
-
-  //       print(booking_time);
-  //     }).catchError((e) {
-  //       print(e);
-  //     });
-  //   }
-  // }
-
-  // Future<void> cancel(String jobId) async {
-  //   final firebaseUser = await FirebaseAuth.instance.currentUser?.uid;
-  //   return FirebaseFirestore.instance
-  //       .collection('jobs')
-  //       .doc(firebaseUser)
-  //       .delete();
-  // }
   @override
   Widget build(BuildContext context) {
     CollectionReference booking =
@@ -229,7 +193,7 @@ class _BookingsListState extends State<BookingsList> {
                           onPressed: () async {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) {
-                              return LocationPage();
+                              return BookingPage();
                             }));
                           },
                           child: Text(
@@ -245,82 +209,3 @@ class _BookingsListState extends State<BookingsList> {
         });
   }
 }
-
-// FutureBuilder<Object>(
-//         future: booking.doc(FirebaseAuth.instance.currentUser?.uid).get(),
-//         builder: (context, AsyncSnapshot snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return Text("Loading...");
-//           }
-//           return Scaffold(
-//             backgroundColor: bgBlueWhite,
-//             body:
-
-//             ListView(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.all(20.0),
-//                   child: Container(
-//                     height: 20.h,
-//                     color: white,
-//                     child: Text("${snapshot.data!['address'] ?? 0}")),
-//                 ),
-//               ],
-//             ),
-//           );
-//         });
-
-// Scaffold(
-//   body: Padding(
-//     padding: const EdgeInsets.all(20.0),
-//     child: ListView(
-//       children: snapshot.data?.docs.map((doc) {
-//             // your widget here(use doc data)
-//             return Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Container(
-//                 height: 20.h,
-//                 color: grey,
-//                 child: Column(
-//                   children: [Text("${doc.data()}")],
-//                 ),
-//               ),
-//             );
-//           }).toList() ??
-//           [],
-//     ),
-//   ),
-// );
-
-// Text("Full Name: ${data['username']} ${data['email']}");
-
-// FutureBuilder<DocumentSnapshot>(
-//       future: users.doc(widget.documentId).get(),
-//       builder:
-//           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-//         if (snapshot.hasError) {
-//           return Text("Something went wrong");
-//         }
-
-//         if (snapshot.hasData && !snapshot.data!.exists) {
-//           return Text("Document does not exist");
-//         }
-
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           Map<String, dynamic> data =
-//               snapshot.data!.data() as Map<String, dynamic>;
-//           return Scaffold(
-//               body: ListView(
-//             padding: const EdgeInsets.all(8),
-//             children: <Widget>[
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Container(),
-//               )
-//             ],
-//           ));
-//         }
-
-//         return Text("loading");
-//       },
-//     );

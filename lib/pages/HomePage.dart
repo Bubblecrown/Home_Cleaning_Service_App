@@ -10,7 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:home_cleaning_service_app/shared/ColorScheme.dart';
 import 'package:home_cleaning_service_app/shared/font.dart';
 import 'package:home_cleaning_service_app/model/service.dart';
-import 'package:home_cleaning_service_app/pages/LocationPage.dart';
+import 'package:home_cleaning_service_app/pages/Booking.dart';
 import 'package:home_cleaning_service_app/pages/welcome.dart';
 import 'package:sizer/sizer.dart';
 
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: (() {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return LocationPage();
+                          return BookingPage();
                         }));
                       }),
                     ),
