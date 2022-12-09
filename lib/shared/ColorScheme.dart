@@ -11,10 +11,8 @@ Color greyPrimary = Color(hexColor('#7B7B7B'));
 Color grey = Color(hexColor('#C0C0C0'));
 Color bgWhite = Color(hexColor('#F8FAFF'));
 Color bgBlueWhite = Color(hexColor('#F1F5FE'));
-
 Color bgBlue = Color.fromRGBO(156, 185, 255, 1);
 Color logout = Color.fromARGB(255, 255, 156, 168);
-Color pinkSecondary = Color(hexColor('#f4afc2'));
 
 int hexColor(String color) {
   //adding prefix

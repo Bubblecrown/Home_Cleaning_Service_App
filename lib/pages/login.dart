@@ -108,12 +108,13 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40))),
-                    padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
+                    padding: EdgeInsets.fromLTRB(30, 60, 30, 0),
                     width: 100.w,
                     height: 70.h,
 
                     // Listview
                     child: ListView(
+                      padding: EdgeInsets.zero,
                       children: [
                         // description
                         SizedBox(
@@ -230,9 +231,8 @@ class _LoginPageState extends State<LoginPage> {
                                     formKey.currentState?.save();
                                     try {
                                       bool hasInternet = false;
-                                      final notify = hasInternet
-                                          ? null
-                                          : 'No Internet';
+                                      final notify =
+                                          hasInternet ? null : 'No Internet';
                                       hasInternet =
                                           await InternetConnectionChecker()
                                               .hasConnection;

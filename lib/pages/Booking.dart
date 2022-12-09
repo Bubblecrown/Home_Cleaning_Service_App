@@ -125,21 +125,6 @@ class _LocaBookingState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final hour = dateTime.hour.toString().padLeft(2, '0');
-    final minute = dateTime.minute.toString().padLeft(2, '0');
-    // return
-    // FutureBuilder(
-    //   future: Firebase.initializeApp(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.hasError) {
-    //       return Scaffold(
-    //         appBar: AppBar(title: Text("Error internet")),
-    //         body: Center(
-    //           child: Text("${snapshot.error}"),
-    //         ),
-    //       );
-    //     }
-    //     if (snapshot.connectionState == ConnectionState.done) {
     return Scaffold(
       // appbar
       appBar: AppBar(
@@ -275,8 +260,6 @@ class _LocaBookingState extends State<BookingPage> {
                   // address detail form
                   TextFormField(
                     style: TextStyle(color: greyPrimary),
-                    // validator: (val) =>
-                    //     val!.isEmpty ? 'Please enter a Place Name' : null,
                     onChanged: (val) => setState(() => addressDetail = val),
                     onSaved: (String? addressDetail) {
                       addressDetail = addressDetail!;
@@ -403,6 +386,7 @@ class _LocaBookingState extends State<BookingPage> {
                                   '${dateTime.day}/${dateTime.month}/${dateTime.year}',
                                   style: TextStyle(color: greyPrimary)))),
                       // end Date form
+
                       Spacer(),
                       // Time form
                       SizedBox(
@@ -447,8 +431,6 @@ class _LocaBookingState extends State<BookingPage> {
                   // address detail form
                   TextFormField(
                     style: TextStyle(color: greyPrimary),
-                    // validator: (val) =>
-                    //     val!.isEmpty ? 'Please enter a Place Name' : null,
                     onChanged: (val) => setState(() => additional = val),
                     onSaved: (String? additional) {
                       additional = additional!;
@@ -519,13 +501,7 @@ class _LocaBookingState extends State<BookingPage> {
         )
       ]),
     );
-    //     }
-    // return Scaffold(
-    //   body: Center(child: CircularProgressIndicator()),
-    // );
   }
-  // );
-  // }
 
   Future<DateTime?> pickDate() => showDatePicker(
       context: context,
