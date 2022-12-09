@@ -231,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                                     try {
                                       bool hasInternet = false;
                                       final notify = hasInternet
-                                          ? 'Internet already'
+                                          ? null
                                           : 'No Internet';
                                       hasInternet =
                                           await InternetConnectionChecker()

@@ -326,7 +326,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           users.confirmPassword) {
                                         bool hasInternet = false;
                                         final notify = hasInternet
-                                            ? 'Internet already'
+                                            ? null
                                             : 'No Internet';
                                         hasInternet =
                                             await InternetConnectionChecker()

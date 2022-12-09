@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
