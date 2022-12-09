@@ -21,20 +21,34 @@ class _MyWidgetState extends State<MapLocationPage> {
   GoogleMapController? googleMapController;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Position? position;
-  String? addressLocation;
-  final auth = FirebaseAuth.instance;
 
-  void getMarkers(double lat, double long) {
+  Future<void> getMarkers(double lat, double long, addressLine) async {
+    markers.clear();
     MarkerId markerId = MarkerId(lat.toString() + long.toString());
     Marker _marker = Marker(
         markerId: markerId,
         position: LatLng(lat, long),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        infoWindow: InfoWindow(snippet: 'Address'));
+        infoWindow:
+            InfoWindow(title: "Your Address", snippet: "${addressLine}"));
     setState(() {
       markers[markerId] = _marker;
     });
   }
+
+  // Future<void> getCurrentLocation() async {
+  //   Position currentPosition =
+  //       await GeolocatorPlatform.instance.getCurrentPosition();
+  //   setState(() {
+  //     position = currentPosition;
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getCurrentLocation();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +72,16 @@ class _MyWidgetState extends State<MapLocationPage> {
           width: 100.w,
           height: 100.h,
           child: GoogleMap(
-            mapType: MapType.hybrid,
-            compassEnabled: true,
-            trafficEnabled: true,
+            mapType: MapType.normal,
             myLocationEnabled: true,
             zoomControlsEnabled: true,
-            
             onTap: ((tap) async {
               final coordinated =
                   new geo.Coordinates(tap.latitude, tap.longitude);
               var address = await geo.Geocoder.local
                   .findAddressesFromCoordinates(coordinated);
               var firstAddress = address.first;
-              getMarkers(tap.latitude, tap.longitude);
+              getMarkers(tap.latitude, tap.longitude, firstAddress.addressLine);
               await FirebaseFirestore.instance
                   .collection('booking_list')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -78,9 +89,6 @@ class _MyWidgetState extends State<MapLocationPage> {
                 'latitude': tap.latitude,
                 'longitude': tap.longitude,
                 'Address': firstAddress.addressLine,
-              });
-              setState(() {
-                addressLocation = firstAddress.addressLine;
               });
             }),
             onMapCreated: (GoogleMapController controller) {

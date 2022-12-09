@@ -240,13 +240,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1"
-  geocoder2:
-    dependency: "direct main"
-    description:
-      name: geocoder2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.0"
   geolocator:
     dependency: "direct main"
     description:
@@ -317,13 +310,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.4"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
@@ -401,13 +387,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
-  permission:
-    dependency: "direct main"
-    description:
-      name: permission
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.7"
   petitparser:
     dependency: transitive
     description:

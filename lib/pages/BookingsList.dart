@@ -27,7 +27,9 @@ class _BookingsListState extends State<BookingsList> {
         FirebaseFirestore.instance.collection('booking_list');
 
     return FutureBuilder<Object>(
-        future: booking.doc(FirebaseAuth.instance.currentUser?.uid).get(),
+        future: booking
+            .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+            .get(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
