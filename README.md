@@ -17,7 +17,10 @@ Welcome to the Home Cleaning Service App for the Mobile Development course. This
 The UI design of the app was created by Pimchawisa, you can view it on Figma by visiting this link.
 
 ## App Demo
-You can check out a demo of the app by watching this [![video](https://user-images.githubusercontent.com/102675026/212960501-84366a98-bed8-4149-996f-3e8ab5d85c32.mp4)].
+You can check out a demo of the app by watching this
+
+https://user-images.githubusercontent.com/102675026/213001769-2346a3ec-5ce5-4d4d-a455-bb5043908451.mp4
+
 
 ## Getting Started
 
