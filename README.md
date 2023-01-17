@@ -56,4 +56,4 @@ To use the Google map feature, you will need to add your own API key in the andr
 This app is a work in progress and may contain bugs or unfinished features. Feel free to open an issue or submit a pull request if you have any suggestions or improvements.
 
 ## Contact
-If you have any questions or feedback, please feel free to contact me at [GitHub Pages](https://pages.github.com/)
+If you have any questions or feedback, please feel free to contact me at [My email](https://mail.google.com/mail/?view=cm&fs=1&to=suchanya.namwong1@gmail.com)
